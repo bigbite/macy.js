@@ -1,0 +1,24 @@
+{
+  "node": true,
+  "browser": true,
+  "devel": true,
+  "esnext": true,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "quotmark": "single",
+  "regexp": true,
+  "undef": true,
+  "unused": false,
+  "strict": false,
+  "trailing": false,
+  "globals": {
+    "define": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "macy",
+  "version": "1.0.2",
+  "homepage": "http://macyjs.com/",
+  "author": {
+    "name": "Big Bite Creative",
+    "url": "http://bigbitecreative.com",
+    "twitter": "@bigbitecreative"
+  },
+  "description": "Macy is a lightweight, dependency free, masonry layout library",
+  "main": "dist/macy.js",
+  "keywords": [
+    "masonry",
+    "layout"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "demo",
+    "tests"
+  ]
+}

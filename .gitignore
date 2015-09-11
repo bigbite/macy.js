@@ -1,0 +1,64 @@
+# Bower
+bower_components
+
+# Sass
+.sass-cache
+
+# Docs
+docs
+
+## Node.js
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+pids
+logs/*
+results
+npm-debug.log
+node_modules
+
+# Map files
+.map
+
+# Local testing folder
+testing
+
+# Env file
+.env
+
+# Vagrant
+.vagrant
+
+# Web/PHPstorm
+.idea
+
+# WordPress
+wp-config-local.php
+wp-config-live.php
+
+# Provided App Template
+app/*
+
+# PHP Testing
+!app/phpspec.yaml
+!app/phpunit.xml
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
