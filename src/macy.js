@@ -443,7 +443,7 @@
   };
 
   /**
-   * Removes Macy instance
+   * Removes Macy instance.
    */
   var remove = function () {
     each(cache.container.children, function (index, ele) {
@@ -527,7 +527,7 @@
   };
 
   /**
-   * Set up public methods
+   * Set up public methods.
    */
   Macy.recalculate = recalculate;
   Macy.onImageLoad = calculateOnImageLoad;
