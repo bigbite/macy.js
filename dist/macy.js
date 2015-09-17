@@ -1,7 +1,7 @@
 /*!
- * Macy.js v0.1.0 - description here
+ * Macy.js v1.1.0 - Macy is a lightweight, dependency free, masonry layout library
  * Author: Copyright (c) Big Bite Creative <@bigbitecreative> <http://bigbitecreative.com>
- * Url: 
+ * Url: http://macyjs.com/
  * License: MIT
  */
 (function(root, factory) {
@@ -39,7 +39,7 @@
     return extended;
   };
   var Macy = {};
-  Macy.VERSION = "0.1.0";
+  Macy.VERSION = "1.1.0";
   Macy.settings = {};
   var defaults = {
     columns: 3,
@@ -263,12 +263,19 @@
       after();
     }
   };
+  var remove = function() {
+    each(cache.container.children, function(index, ele) {
+      ele.removeAttribute("style");
+    });
+    cache.container.removeAttribute("style");
+    window.removeEventListener("resize", recalculate);
+  };
   var calculateOnImageLoad = function(during, after) {
     var imgs = eles("img");
     imgsRequired = imgs.length - 1;
     currentlyLoaded = 0;
     each(imgs, function(i, img) {
-      if (img.compvare) {
+      if (img.complete) {
         currentlyLoaded++;
         imagesLoaded(during, after);
         return;
@@ -309,5 +316,8 @@
       recalculate();
     });
   };
+  Macy.recalculate = recalculate;
+  Macy.onImageLoad = calculateOnImageLoad;
+  Macy.remove = remove;
   return Macy;
 });

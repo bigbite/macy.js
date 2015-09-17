@@ -55,7 +55,7 @@
    * Current version.
    * @type {String}
    */
-  Macy.VERSION = '0.1.0';
+  Macy.VERSION = '1.1.0';
 
   /**
    * Expose settings.
@@ -442,6 +442,19 @@
     }
   };
 
+  /**
+   * Removes Macy instance
+   */
+  var remove = function () {
+    each(cache.container.children, function (index, ele) {
+      ele.removeAttribute('style');
+    });
+
+    cache.container.removeAttribute('style');
+
+    window.removeEventListener('resize',  recalculate);
+  };
+
  /**
    * Fires calculate on image load.
    * @param {Function} during
@@ -454,7 +467,7 @@
     currentlyLoaded = 0;
 
     each(imgs, function (i, img) {
-      if (img.compvare) {
+      if (img.complete) {
         currentlyLoaded++;
         imagesLoaded(during, after);
 
@@ -512,6 +525,13 @@
       recalculate();
     });
   };
+
+  /**
+   * Set up public methods
+   */
+  Macy.recalculate = recalculate;
+  Macy.onImageLoad = calculateOnImageLoad;
+  Macy.remove = remove;
 
   /**
    * Return public API.
