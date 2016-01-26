@@ -505,9 +505,7 @@
 
     cache.options = extend(defaults, options);
 
-    window.addEventListener('resize', function () {
-      recalculate();
-    });
+    window.addEventListener('resize', recalculate);
 
     cache.container.style.position = 'relative';
     cache.elements = cache.container.children;
