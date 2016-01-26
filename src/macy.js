@@ -55,7 +55,7 @@
    * Current version.
    * @type {String}
    */
-  Macy.VERSION = '1.1.0';
+  Macy.VERSION = '1.1.1';
 
   /**
    * Expose settings.

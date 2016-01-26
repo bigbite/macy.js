@@ -1,5 +1,5 @@
 /*!
- * Macy.js v1.1.0 - Macy is a lightweight, dependency free, masonry layout library
+ * Macy.js v1.1.1 - Macy is a lightweight, dependency free, masonry layout library
  * Author: Copyright (c) Big Bite Creative <@bigbitecreative> <http://bigbitecreative.com>
  * Url: http://macyjs.com/
  * License: MIT
@@ -39,7 +39,7 @@
     return extended;
   };
   var Macy = {};
-  Macy.VERSION = "1.1.0";
+  Macy.VERSION = "1.1.1";
   Macy.settings = {};
   var defaults = {
     columns: 3,
