@@ -55,7 +55,7 @@
    * Current version.
    * @type {String}
    */
-  Macy.VERSION = '1.1.0';
+  Macy.VERSION = '1.1.1';
 
   /**
    * Expose settings.
@@ -443,7 +443,7 @@
   };
 
   /**
-   * Removes Macy instance
+   * Removes Macy instance.
    */
   var remove = function () {
     each(cache.container.children, function (index, ele) {
@@ -505,9 +505,7 @@
 
     cache.options = extend(defaults, options);
 
-    window.addEventListener('resize', function () {
-      recalculate();
-    });
+    window.addEventListener('resize', recalculate);
 
     cache.container.style.position = 'relative';
     cache.elements = cache.container.children;
@@ -527,7 +525,7 @@
   };
 
   /**
-   * Set up public methods
+   * Set up public methods.
    */
   Macy.recalculate = recalculate;
   Macy.onImageLoad = calculateOnImageLoad;
