@@ -512,16 +512,12 @@
 
     if (!cache.options.waitForImages) {
       recalculate();
-      calculateOnImageLoad(function () {
-        recalculate();
-      });
+      calculateOnImageLoad(recalculate);
 
       return;
     }
 
-    calculateOnImageLoad(null, function () {
-      recalculate();
-    });
+    calculateOnImageLoad(null, recalculate);
   };
 
   /**
