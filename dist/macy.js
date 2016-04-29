@@ -1,5 +1,5 @@
 /*!
- * Macy.js v1.1.1 - Macy is a lightweight, dependency free, masonry layout library
+ * Macy.js v1.1.2 - Macy is a lightweight, dependency free, masonry layout library
  * Author: Copyright (c) Big Bite Creative <@bigbitecreative> <http://bigbitecreative.com>
  * Url: http://macyjs.com/
  * License: MIT
@@ -39,7 +39,7 @@
     return extended;
   };
   var Macy = {};
-  Macy.VERSION = "1.1.1";
+  Macy.VERSION = "1.1.2";
   Macy.settings = {};
   var defaults = {
     columns: 3,
@@ -100,12 +100,13 @@
   };
   var getTopValue = function(row, col, eles) {
     var totalHeight = 0;
+    var tempHeight;
     if (row === 0) {
       return 0;
     }
     for (var i = 0; i < row; i++) {
-      totalHeight += parseInt(getProperty(cache.elements[eles[i]], "height").replace("px", ""));
-      totalHeight += cache.options.margin;
+      tempHeight = parseInt(getProperty(cache.elements[eles[i]], "height").replace("px", ""), 10);
+      totalHeight += isNaN(tempHeight) ? 0 : tempHeight + cache.options.margin;
     }
     return totalHeight;
   };
@@ -169,10 +170,11 @@
   };
   var findIndexOfSmallestTotal = function(arr) {
     var runningTotal = 0;
-    var smallestIndex, smallest, lastSmall;
+    var smallestIndex, smallest, lastSmall, tempHeight;
     for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
       for (var j = 0; j < arr[i].length; j++) {
-        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""));
+        tempHeight = parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""), 10);
+        runningTotal += isNaN(tempHeight) ? 0 : tempHeight;
       }
       lastSmall = smallest;
       smallest = smallest === undefined ? runningTotal : smallest > runningTotal ? runningTotal : smallest;
@@ -191,7 +193,7 @@
     var highest = 0, runningTotal = 0;
     for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
       for (var j = 0; j < arr[i].length; j++) {
-        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""));
+        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""), 10);
         runningTotal += j !== 0 ? cache.options.margin : 0;
       }
       highest = highest < runningTotal ? runningTotal : highest;
