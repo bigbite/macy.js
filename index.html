@@ -119,9 +119,11 @@
         });
 
         Macy.onImageLoad(function () {
-            Macy.recalculate();
+          console.log('Every time an image loads I get fired');
+          Macy.recalculate();
         }, function () {
-            Macy.recalculate();
+          console.log('I only get called when all images are loaded');
+          Macy.recalculate();
         });
 
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
