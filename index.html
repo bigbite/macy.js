@@ -119,7 +119,8 @@
         });
 
         Macy.onImageLoad(function () {
-            console.log('fire');
+            Macy.recalculate();
+        }, function () {
             Macy.recalculate();
         });
 
