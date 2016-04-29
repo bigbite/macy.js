@@ -104,27 +104,31 @@
 
     <script src="assets/js/macy.min.js"></script>
     <script>
-       Macy.init({
-        container: '#macy-container',
-        trueOrder: false,
-        waitForImages: false,
-        margin: 24,
-        columns: 6,
-        breakAt: {
-          1200: 5,
-          940: 3,
-          520: 2,
-          400: 1
-        }
-      });
+        Macy.init({
+            container: '#macy-container',
+            trueOrder: false,
+            waitForImages: false,
+            margin: 24,
+            columns: 6,
+            breakAt: {
+                1200: 5,
+                940: 3,
+                520: 2,
+                400: 1
+            }
+        });
 
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        Macy.onImageLoad(function () {
+            Macy.recalculate();
+        });
 
-      ga('create', 'UA-67685146-1', 'auto');
-      ga('send', 'pageview');
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-67685146-1', 'auto');
+        ga('send', 'pageview');
 
     </script>
 </body>
