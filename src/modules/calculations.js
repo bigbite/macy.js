@@ -1,3 +1,8 @@
+/**
+ * Return the current number of columns macy should be
+ * @param  {Object} options - Macy instance's options
+ * @return {Integer}        - Number of columns
+ */
 export function getCurrentColumns (options) {
   let docWidth = document.body.clientWidth;
   let noOfColumns;
@@ -16,6 +21,12 @@ export function getCurrentColumns (options) {
   return noOfColumns;
 }
 
+/**
+ * Get the width of each column based on the number of columns
+ * @param  {Object} options           - Macy instance's options
+ * @param  {Boolean} marginsIncluded  - Include margins into the calculations
+ * @return {String}                   - The correct number css style for column width
+ */
 export function getWidths (options, marginsIncluded = true) {
   let noOfColumns = getCurrentColumns(options);
   let margins;
@@ -33,6 +44,12 @@ export function getWidths (options, marginsIncluded = true) {
   return `calc(${width}% - ${margins}px)`;
 };
 
+/**
+ * Get the left position based on which column and column width
+ * @param  {Macy}    ctx  - Macy instance
+ * @param  {Integer} col  - Current Number of Columns
+ * @return {String}       - The correct number css style for column position
+ */
 export function getLeftPosition (ctx, col) {
   let noOfColumns = getCurrentColumns(ctx.options);
   let totalLeft = 0;
@@ -51,6 +68,10 @@ export function getLeftPosition (ctx, col) {
   return str;
 }
 
+/**
+ * Sets the containers height based on the last item in the container
+ * @param {Macy} ctx  - Macy instance
+ */
 export function setContainerHeight (ctx) {
   let largest = 0;
   let {container, rows} = ctx;

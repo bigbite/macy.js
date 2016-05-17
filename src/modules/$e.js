@@ -1,3 +1,9 @@
+/**
+ * Element Factory
+ * @param  {String} parameter       - Element Selector
+ * @param  {HTMLElement} context    - The parent to find the selector in
+ * @return {HTMLElement/HTMLCollection}
+ */
 let $e = function (parameter, context) {
   if (!(this instanceof $e)) {
     return new $e(parameter, context);
@@ -21,7 +27,12 @@ let $e = function (parameter, context) {
   return this.byCss(parameter);
 };
 
-// Select some elements using a css Selector
+/**
+ * Get an element by using querySelectorAll
+ * @param  {String} parameter       - Element Selector
+ * @param  {HTMLElement} context    - The parent to find the selector in
+ * @return {NodeList}
+ */
 $e.prototype.byCss = function (parameter, context) {
   return (context || document).querySelectorAll(parameter);
 };
@@ -29,17 +40,29 @@ $e.prototype.byCss = function (parameter, context) {
 
 $e.prototype.selectors = {};
 
-// Find some html nodes using an Id
+/**
+ * Get an element by using getElementsByClassName
+ * @param  {String} param   - Element Selector
+ * @return {HTMLCollection}
+ */
 $e.prototype.selectors[/^\.[\w\-]+$/] = function (param) {
   return document.getElementsByClassName(param.substring(1));
 };
 
-//The tag nodes
+/**
+ * Get an element by using getElementsByTagName
+ * @param  {String} param   - Element Selector
+ * @return {HTMLCollection}       [description]
+ */
 $e.prototype.selectors[/^\w+$/] = function (param) {
   return document.getElementsByTagName(param);
 };
 
-// Find some html nodes using an Id
+/**
+ * Get an element by using getElementsByTagName
+ * @param  {String} param   - Element Selector
+ * @return {HTMLElement}
+ */
 $e.prototype.selectors[/^\#[\w\-]+$/] = function (param) {
   return document.getElementById(param.substring(1));
 };

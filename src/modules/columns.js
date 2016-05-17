@@ -1,6 +1,13 @@
 import {getLeftPosition, getCurrentColumns, getWidths, setContainerHeight} from './calculations';
 import prop from '../helpers/prop';
-function setUpRows (ctx, cols, refresh = false) {
+
+/**
+ * Sets up the required data for the shuffle and sort method
+ * @param  {Macy}     ctx     - Macy Instance
+ * @param  {Integer}  cols    - Number of columns
+ * @param  {Boolean} refresh  - Should columns and rows be reset
+ */
+const setUpRows = (ctx, cols, refresh = false) => {
 
   if (!ctx.lastcol) {
     ctx.lastcol = 0;
@@ -24,15 +31,22 @@ function setUpRows (ctx, cols, refresh = false) {
     for (var i = cols - 1; i >= 0; i--) {
       ctx.rows[i] = ctx.tmpRows[i];
     }
+    return
+  }
 
-  } else {
-    ctx.tmpRows = [];
-    for (var i = cols - 1; i >= 0; i--) {
-      ctx.tmpRows[i] = ctx.rows[i];
-    }
+  ctx.tmpRows = [];
+  for (var i = cols - 1; i >= 0; i--) {
+    ctx.tmpRows[i] = ctx.rows[i];
   }
 }
 
+/**
+ * A Sorting method when trueOrder = false
+ * @param  {Macy}      ctx              - Macy Instance
+ * @param  {NodeList}  $eles            - Element List to sort
+ * @param  {Boolean}   refresh          - Show all columns and rows be refreshed and recalculated
+ * @param  {Boolean}   markasComplete   - Mark elements as complete
+ */
 export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
   let cols = getCurrentColumns(ctx.options);
   setUpRows(ctx, cols, refresh);
@@ -67,6 +81,13 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
   setContainerHeight(ctx);
 }
 
+/**
+ * A Sorting method when trueOrder = true
+ * @param  {Macy}      ctx              - Macy Instance
+ * @param  {NodeList}  $eles            - Element List to sort
+ * @param  {Boolean}   refresh          - Show all columns and rows be refreshed and recalculated
+ * @param  {Boolean}   markasComplete   - Mark elements as complete
+ */
 export function sort (ctx, $eles, refresh = false, markasComplete = true) {
   let cols = getCurrentColumns(ctx.options);
   setUpRows(ctx, cols, refresh);

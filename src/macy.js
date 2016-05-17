@@ -5,6 +5,7 @@ import calculate from './modules/calculate';
 import imagesLoaded from './helpers/imagesLoaded';
 import {wait} from './helpers/wait';
 
+
 const defaults = {
   columns: 4,
   margin: 2,
@@ -12,6 +13,10 @@ const defaults = {
   waitForImages: false
 };
 
+/**
+ * Masonary Factory
+ * @param {Object} opts - The configuration object for macy.
+ */
 let Macy = function (opts) {
   /**
    * Creact instance of macy if not instatiated with new Macy
@@ -57,6 +62,11 @@ let Macy = function (opts) {
   imagesLoaded(imgs, loadingEvent, finishedLoading);
 }
 
+/**
+ * Public method for recalculating image positions when the images have loaded.
+ * @param  {Boolean} waitUntilFinish - if true it will not recalculate until all images are finished loading
+ * @param  {Boolean} refresh         - If true it will recalculate the entire container instead of just new elements.
+ */
 Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false, refresh = false) {
   let imgs = $e('img', this.container);
   let loadingEvent = this.recalculate.bind(this, false, false);
@@ -70,6 +80,11 @@ Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false, refre
   return imagesLoaded(imgs, loadingEvent, finalEvent);
 }
 
+/**
+ * Run a function on every image load or once all images are loaded
+ * @param  {Function}  func      - Function to run on image load
+ * @param  {Boolean} everyLoad   - If true it will run everytime an image loads
+ */
 Macy.prototype.runOnImageLoad = function (func, everyLoad = false) {
   let imgs = $e('img', this.container);
 
@@ -80,10 +95,18 @@ Macy.prototype.runOnImageLoad = function (func, everyLoad = false) {
   return imagesLoaded(imgs, null, func);
 }
 
+/**
+ * Recalculates masonory positions
+ * @param  {Boolean} refresh - Recalculates All elements within the container
+ * @param  {Boolean} loaded  - When true it sets the recalculated elements to be marked as complete
+ */
 Macy.prototype.recalculate = function (refresh = false, loaded = true) {
   return calculate(this, refresh, loaded);
 }
 
+/**
+ * Destroys macy instance
+ */
 Macy.prototype.remove = function () {
   window.removeEventListener('resize', this.resizer);
 
@@ -95,4 +118,15 @@ Macy.prototype.remove = function () {
   this.container.removeAttribute('style');
 }
 
+/**
+ * ReInitializes the macy instance using the already defined options
+ */
+Macy.prototype.reInit = function () {
+  this.recalculate(true, true);
+  window.addEventListener('resize', this.resizer);
+}
+
+/**
+ * Export Macy
+ */
 module.exports = Macy;

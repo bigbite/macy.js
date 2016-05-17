@@ -64,7 +64,6 @@ var buildScript = (file, watch) => {
     standalone: 'Macy',
   };
 
-  // watchify() if watch requested, otherwise run browserify() once
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
 
   var rebundle = () => {
@@ -107,7 +106,7 @@ function handleErrors() {
     title: 'Compile Error',
     message: '<%= error.message %>'
   }).apply(this, args);
-  this.emit('end'); // Keep gulp from hanging on this task
+  this.emit('end');
 }
 
 gulp.task('default', ['clean'], function () {
