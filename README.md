@@ -132,6 +132,15 @@ Remove does exactly what it says on the tin, it removes all styling and event li
 Macy.remove();
 ```
 
+##### **reInit**
+*Parameters: `None`*
+
+Reinitialises the current macy instance;
+
+```javascript
+Macy.reInit();
+```
+
 ---
 
 ## *Notes*
