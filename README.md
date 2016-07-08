@@ -1,10 +1,6 @@
 # Macy.js
 Macy.js is a lightweight dependency-free JavaScript library designed to sort items vertically into columns by finding an optimum layout with a minimum height.
 
-## *Whats New*
-
-Version 2 is a complete rewrite that comes with support for multiple instances and performance upgrades
-
 ## Installing
 Install with npm:
 
