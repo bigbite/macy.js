@@ -1,6 +1,10 @@
 # Macy.js
 Macy.js is a lightweight dependency-free JavaScript library designed to sort items vertically into columns by finding an optimum layout with a minimum height.
 
+## *Whats New*
+
+Version 2 is a complete rewrite that comes with support for multiple instances and performance upgrades
+
 ## Installing
 Install with npm:
 
@@ -16,7 +20,7 @@ bower install macy
 
 ## Usage
 ```javascript
-Macy.init({
+var macy = Macy({
   // See below for all available options.
 });
 ```
@@ -59,13 +63,13 @@ If the column is set to one then Macy will remove all styling to leave you to st
 
 ## Methods
 
-##### **init**
+##### **Macy**
 *Parameters: `{Object} args - required`*
 
 This is the initializing function. The function takes an object of properties listed above. The only required property is container which would be the *selector* for the element that contains all the elements you want to be layed out:
 
 ```javascript
-Macy.init({
+var macy = Macy({
     container: '#macy-container',
     trueOrder: false,
     waitForImages: false,
@@ -81,7 +85,7 @@ Macy.init({
 ```
 
 ##### **recalculate**
-*Parameters: `None`*
+*Parameters: `{Boolean} refresh - can be null` & `{Boolean} loaded -can be null` *
 
 When called this recalculates the entire layout, this becomes useful if you just used ajax to pull in more content:
 
@@ -135,5 +139,4 @@ Macy.remove();
 ---
 
 ## *Notes*
-- Currently only one instance of macy is supported per page. But that will be subject to change in later versions
 - Browser support for all major browsers including IE9+

@@ -19,7 +19,7 @@ const defaults = {
  */
 let Macy = function (opts) {
   /**
-   * Creact instance of macy if not instatiated with new Macy
+   * Create instance of macy if not instatiated with new Macy
    */
   if (!(this instanceof Macy)) {
     return new Macy(opts)
