@@ -16,7 +16,7 @@ bower install macy
 
 ## Usage
 ```javascript
-var macy = Macy({
+var macy_instance = Macy({
   // See below for all available options.
 });
 ```
@@ -79,6 +79,8 @@ var macy = Macy({
     }
 });
 ```
+
+From this point on whenever 'Macy' is specified it is referencing the variable you assign macy to when calling the initial call.
 
 ##### **recalculate**
 *Parameters: `{Boolean} refresh - can be null` & `{Boolean} loaded -can be null` *
