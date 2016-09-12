@@ -403,11 +403,11 @@
    * @return {Array}           - An array of all visible elements with that selector
    */
   var eles = function (selector) {
-    var nl = document.querySelectorAll(selector);
+    var nl = cache.container.querySelectorAll(selector);
     var arr = [];
 
     for (var i = nl.length - 1; i >= 0; i--) {
-      if (nl[i].offsetParent !== null) {
+      if (nl[i].parentNode !== null) {
         arr.unshift(nl[i]);
       }
     }

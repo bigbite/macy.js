@@ -66,7 +66,7 @@ This is the initializing function. The function takes an object of properties li
 
 ```javascript
 Macy.init({
-    container: '#macy-container',
+    container: document.getElementById('macy-container'),
     trueOrder: false,
     waitForImages: false,
     margin: 24,
