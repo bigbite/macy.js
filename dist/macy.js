@@ -52,10 +52,10 @@
   };
   var imgsRequired, currentlyLoaded;
   var getCurrentColumns = function() {
-    var docWidth = document.body.clientWidth;
+    var fullWidth = window.innerWidth;
     var noOfColumns;
     for (var widths in cache.options.breakAt) {
-      if (docWidth < widths) {
+      if (fullWidth < widths) {
         noOfColumns = cache.options.breakAt[widths];
         break;
       }
