@@ -403,7 +403,7 @@
    * @return {Array}           - An array of all visible elements with that selector
    */
   var eles = function (selector) {
-    var nl = cache.container.querySelectorAll(selector);
+    var nl = document.querySelectorAll(selector);
     var arr = [];
 
     for (var i = nl.length - 1; i >= 0; i--) {
