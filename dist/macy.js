@@ -244,7 +244,7 @@
     var nl = cache.container.querySelectorAll(selector);
     var arr = [];
     for (var i = nl.length - 1; i >= 0; i--) {
-      if (nl[i].offsetParent !== null) {
+      if (nl[i].parentNode !== null) {
         arr.unshift(nl[i]);
       }
     }
