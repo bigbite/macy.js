@@ -241,7 +241,7 @@
     return document.querySelector(selector);
   };
   var eles = function(selector) {
-    var nl = document.querySelectorAll(selector);
+    var nl = cache.container.querySelectorAll(selector);
     var arr = [];
     for (var i = nl.length - 1; i >= 0; i--) {
       if (nl[i].offsetParent !== null) {
