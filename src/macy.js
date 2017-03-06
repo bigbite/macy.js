@@ -134,6 +134,7 @@
 
     each(cache.elements, function (index, val) {
       val.style.width = percentageWidth;
+      val.style.opacity = 1;
       val.style.position = 'absolute';
     });
   };
