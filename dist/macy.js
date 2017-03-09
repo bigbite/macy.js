@@ -78,6 +78,11 @@
     margins = (noOfColumns - 1) * cache.options.margin / noOfColumns;
     return "calc(" + 100 / noOfColumns + "% - " + margins + "px)";
   };
+  var each = function(arr, func) {
+    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
+      func(i, arr[i]);
+    }
+  };
   var setWidths = function() {
     var percentageWidth = getColumnWidths();
     each(cache.elements, function(index, val) {
@@ -98,6 +103,22 @@
     str = "calc(" + totalLeft + "% + " + margin + "px)";
     return str;
   };
+  var getProperty = function(element, value) {
+    return window.getComputedStyle(element, null).getPropertyValue(value);
+  };
+  var findLargestColumn = function() {
+    var arr = cache.rows;
+    var highest = 0, runningTotal = 0;
+    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
+      for (var j = 0; j < arr[i].length; j++) {
+        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""));
+        runningTotal += j !== 0 ? cache.options.margin : 0;
+      }
+      highest = highest < runningTotal ? runningTotal : highest;
+      runningTotal = 0;
+    }
+    return highest;
+  };
   var getTopValue = function(row, col, eles) {
     var totalHeight = 0;
     var tempHeight;
@@ -109,6 +130,35 @@
       totalHeight += isNaN(tempHeight) ? 0 : tempHeight + cache.options.margin;
     }
     return totalHeight;
+  };
+  var bubbleSort = function(list) {
+    var arr = list;
+    var n = arr.length - 1;
+    for (var i = 0; i < n; i++) {
+      for (var j = 0; j < n; j++) {
+        if (arr[j] > arr[j + 1]) {
+          var temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
+      }
+    }
+    return arr;
+  };
+  var setPosition = function(alternate) {
+    alternate = alternate || false;
+    var eles = cache.elements;
+    var element2dArray = cache.rows;
+    for (var i = 0, element2dArrayLen = element2dArray.length; i < element2dArrayLen; i++) {
+      var rowArray = alternate ? bubbleSort(element2dArray[i]) : element2dArray[i];
+      for (var j = 0, rowArrayLen = rowArray.length; j < rowArrayLen; j++) {
+        var left, top;
+        left = getLeftValue(i);
+        top = getTopValue(j, i, rowArray, alternate);
+        eles[rowArray[j]].style.top = top + "px";
+        eles[rowArray[j]].style.left = left;
+      }
+    }
   };
   var reOrder = function(columns) {
     var col = 0;
@@ -135,6 +185,23 @@
     cache.rows = indexArray;
     setPosition(false);
   };
+  var findIndexOfSmallestTotal = function(arr) {
+    var runningTotal = 0;
+    var smallestIndex, smallest, lastSmall, tempHeight;
+    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
+      for (var j = 0; j < arr[i].length; j++) {
+        tempHeight = parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""), 10);
+        runningTotal += isNaN(tempHeight) ? 0 : tempHeight;
+      }
+      lastSmall = smallest;
+      smallest = smallest === undefined ? runningTotal : smallest > runningTotal ? runningTotal : smallest;
+      if (lastSmall === undefined || lastSmall > smallest) {
+        smallestIndex = i;
+      }
+      runningTotal = 0;
+    }
+    return smallestIndex;
+  };
   var shuffleOrder = function(columns) {
     var eles = cache.elements;
     var element2dArray = [];
@@ -153,53 +220,8 @@
     cache.rows = element2dArray;
     setPosition(true);
   };
-  var setPosition = function(alternate) {
-    alternate = alternate || false;
-    var eles = cache.elements;
-    var element2dArray = cache.rows;
-    for (var i = 0, element2dArrayLen = element2dArray.length; i < element2dArrayLen; i++) {
-      var rowArray = alternate ? bubbleSort(element2dArray[i]) : element2dArray[i];
-      for (var j = 0, rowArrayLen = rowArray.length; j < rowArrayLen; j++) {
-        var left, top;
-        left = getLeftValue(i);
-        top = getTopValue(j, i, rowArray, alternate);
-        eles[rowArray[j]].style.top = top + "px";
-        eles[rowArray[j]].style.left = left;
-      }
-    }
-  };
-  var findIndexOfSmallestTotal = function(arr) {
-    var runningTotal = 0;
-    var smallestIndex, smallest, lastSmall, tempHeight;
-    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
-      for (var j = 0; j < arr[i].length; j++) {
-        tempHeight = parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""), 10);
-        runningTotal += isNaN(tempHeight) ? 0 : tempHeight;
-      }
-      lastSmall = smallest;
-      smallest = smallest === undefined ? runningTotal : smallest > runningTotal ? runningTotal : smallest;
-      if (lastSmall === undefined || lastSmall > smallest) {
-        smallestIndex = i;
-      }
-      runningTotal = 0;
-    }
-    return smallestIndex;
-  };
-  var getProperty = function(element, value) {
-    return window.getComputedStyle(element, null).getPropertyValue(value);
-  };
-  var findLargestColumn = function() {
-    var arr = cache.rows;
-    var highest = 0, runningTotal = 0;
-    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
-      for (var j = 0; j < arr[i].length; j++) {
-        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], "height").replace("px", ""), 10);
-        runningTotal += j !== 0 ? cache.options.margin : 0;
-      }
-      highest = highest < runningTotal ? runningTotal : highest;
-      runningTotal = 0;
-    }
-    return highest;
+  var setContainerHeight = function() {
+    cache.container.style.height = findLargestColumn() + "px";
   };
   var recalculate = function() {
     var columns = getCurrentColumns();
@@ -220,23 +242,6 @@
     reOrder(columns);
     setContainerHeight();
   };
-  var setContainerHeight = function() {
-    cache.container.style.height = findLargestColumn() + "px";
-  };
-  var bubbleSort = function(list) {
-    var arr = list;
-    var n = arr.length - 1;
-    for (var i = 0; i < n; i++) {
-      for (var j = 0; j < n; j++) {
-        if (arr[j] > arr[j + 1]) {
-          var temp = arr[j];
-          arr[j] = arr[j + 1];
-          arr[j + 1] = temp;
-        }
-      }
-    }
-    return arr;
-  };
   var ele = function(selector) {
     return document.querySelector(selector);
   };
@@ -249,11 +254,6 @@
       }
     }
     return arr;
-  };
-  var each = function(arr, func) {
-    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
-      func(i, arr[i]);
-    }
   };
   var imagesLoaded = function(during, after) {
     during = during || false;

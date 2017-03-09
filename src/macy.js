@@ -127,6 +127,17 @@
   };
 
   /**
+   * Loops through each item in an array calling a function.
+   * @param {Array}    arr  - Array to be cycled through
+   * @param {Function} func - Function to be called
+   */
+  var each = function (arr, func) {
+    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
+      func(i, arr[i]);
+    }
+  };
+
+  /**
    * Sets the element widths based on the amount of columns.
    */
   var setWidths = function () {
@@ -162,6 +173,37 @@
   };
 
   /**
+   * Shortcut for window.getComputedStyle(element, null).getPropertyValue(value).
+   * @param  {Object} element - Element to get property from
+   * @param  {String} value   - Value to get from element
+   * @return {String}         - The returned property
+   */
+  var getProperty = function (element, value) {
+    return window.getComputedStyle(element, null).getPropertyValue(value);
+  };
+
+  /**
+   * Finds the largest column and returns its height value.
+   * @return {Number} - The height value of the highest column
+   */
+  var findLargestColumn = function () {
+    var arr = cache.rows;
+    var highest = 0, runningTotal = 0;
+
+    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
+      for (var j = 0; j < arr[i].length; j++) {
+        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], 'height').replace('px', ''));
+        runningTotal += j !== 0 ? cache.options.margin : 0;
+      }
+
+      highest = highest < runningTotal ? runningTotal : highest;
+      runningTotal = 0;
+    }
+
+    return highest;
+  };
+
+  /**
    * Gets the calculated top value for an element.
    * @param  {Number} row  - The elements row position
    * @param  {Number} col  - The elements columns position
@@ -182,6 +224,51 @@
     }
 
     return totalHeight;
+  };
+
+  /**
+   * Sorts an array of integers in accending order.
+   * @param  {Array} list - Array to be sorted
+   * @return {Array}      - Sorted Array
+   */
+  var bubbleSort = function (list) {
+    var arr = list;
+    var n = arr.length - 1;
+
+    for (var i = 0; i < n; i++) {
+      for (var j = 0; j < n; j++) {
+        if (arr[j] > arr[j + 1]) {
+          var temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
+      }
+    }
+
+    return arr;
+  };
+
+  /**
+   * Sets the position of each element in array.
+   * @param {Bool} alternate=false - The sort method used.
+   */
+  var setPosition = function (alternate) {
+    alternate = alternate || false;
+    var eles = cache.elements;
+    var element2dArray = cache.rows;
+
+    for (var i = 0, element2dArrayLen = element2dArray.length; i < element2dArrayLen; i++) {
+      var rowArray =  alternate ? bubbleSort(element2dArray[i]) : element2dArray[i];
+
+      for (var j = 0, rowArrayLen = rowArray.length; j < rowArrayLen; j++) {
+        var left, top;
+
+        left = getLeftValue(i);
+        top = getTopValue(j, i, rowArray, alternate);
+        eles[rowArray[j]].style.top = top + 'px';
+        eles[rowArray[j]].style.left = left;
+      }
+    }
   };
 
   /**
@@ -222,6 +309,33 @@
   };
 
   /**
+   * Finds the shortest row and return the index in the 2-dimentional array.
+   * @param  {Array}  arr - Array to find the shortest column from
+   * @return {Number}     - Index for the shortest row
+   */
+  var findIndexOfSmallestTotal = function (arr) {
+    var runningTotal = 0;
+    var smallestIndex, smallest, lastSmall, tempHeight;
+
+    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
+      for (var j = 0; j < arr[i].length; j++) {
+        tempHeight = parseInt(getProperty(cache.elements[arr[i][j]], 'height').replace('px', ''), 10);
+        runningTotal += isNaN(tempHeight) ? 0 : tempHeight;
+      }
+
+      lastSmall = smallest;
+      smallest = smallest === undefined ? runningTotal : smallest > runningTotal ? runningTotal : smallest;
+
+      if (lastSmall === undefined || lastSmall > smallest) {
+        smallestIndex = i;
+      }
+      runningTotal = 0;
+    }
+
+    return smallestIndex;
+  };
+
+  /**
    * Sorts the elements in the shuffle method by placing each element in the shortest column.
    * @param {Number} columns - Number of columns
    */
@@ -250,84 +364,10 @@
   };
 
   /**
-   * Sets the position of each element in array.
-   * @param {Bool} alternate=false - The sort method used.
+   * Sets the container height to the largest row.
    */
-  var setPosition = function (alternate) {
-    alternate = alternate || false;
-    var eles = cache.elements;
-    var element2dArray = cache.rows;
-
-    for (var i = 0, element2dArrayLen = element2dArray.length; i < element2dArrayLen; i++) {
-      var rowArray =  alternate ? bubbleSort(element2dArray[i]) : element2dArray[i];
-
-      for (var j = 0, rowArrayLen = rowArray.length; j < rowArrayLen; j++) {
-        var left, top;
-
-        left = getLeftValue(i);
-        top = getTopValue(j, i, rowArray, alternate);
-        eles[rowArray[j]].style.top = top + 'px';
-        eles[rowArray[j]].style.left = left;
-      }
-    }
-  };
-
-  /**
-   * Finds the shortest row and return the index in the 2-dimentional array.
-   * @param  {Array}  arr - Array to find the shortest column from
-   * @return {Number}     - Index for the shortest row
-   */
-  var findIndexOfSmallestTotal = function (arr) {
-    var runningTotal = 0;
-    var smallestIndex, smallest, lastSmall, tempHeight;
-
-    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
-      for (var j = 0; j < arr[i].length; j++) {
-        tempHeight = parseInt(getProperty(cache.elements[arr[i][j]], 'height').replace('px', ''), 10);
-        runningTotal += isNaN(tempHeight) ? 0 : tempHeight;
-      }
-
-      lastSmall = smallest;
-      smallest = smallest === undefined ? runningTotal : smallest > runningTotal ? runningTotal : smallest;
-
-      if (lastSmall === undefined || lastSmall > smallest) {
-        smallestIndex = i;
-      }
-      runningTotal = 0;
-    }
-
-    return smallestIndex;
-  };
-
-  /**
-   * Shortcut for window.getComputedStyle(element, null).getPropertyValue(value).
-   * @param  {Object} element - Element to get property from
-   * @param  {String} value   - Value to get from element
-   * @return {String}         - The returned property
-   */
-  var getProperty = function (element, value) {
-    return window.getComputedStyle(element, null).getPropertyValue(value);
-  };
-
-  /**
-   * Finds the largest column and returns its height value.
-   * @return {Number} - The height value of the highest column
-   */
-  var findLargestColumn = function () {
-    var arr = cache.rows;
-    var highest = 0, runningTotal = 0;
-
-    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
-      for (var j = 0; j < arr[i].length; j++) {
-        runningTotal += parseInt(getProperty(cache.elements[arr[i][j]], 'height').replace('px', ''), 10);
-        runningTotal += j !== 0 ? cache.options.margin : 0;
-      }
-
-      highest = highest < runningTotal ? runningTotal : highest;
-      runningTotal = 0;
-    }
-
-    return highest;
+  var setContainerHeight = function () {
+    cache.container.style.height = findLargestColumn() + 'px';
   };
 
   /**
@@ -360,35 +400,6 @@
   };
 
   /**
-   * Sets the container height to the largest row.
-   */
-  var setContainerHeight = function () {
-    cache.container.style.height = findLargestColumn() + 'px';
-  };
-
-  /**
-   * Sorts an array of integers in accending order.
-   * @param  {Array} list - Array to be sorted
-   * @return {Array}      - Sorted Array
-   */
-  var bubbleSort = function (list) {
-    var arr = list;
-    var n = arr.length - 1;
-
-    for (var i = 0; i < n; i++) {
-      for (var j = 0; j < n; j++) {
-        if (arr[j] > arr[j + 1]) {
-          var temp = arr[j];
-          arr[j] = arr[j + 1];
-          arr[j + 1] = temp;
-        }
-      }
-    }
-
-    return arr;
-  };
-
-  /**
    * Returns an element with the selector.
    * @param  {String} selector - Element selector String
    * @return {Object}       - An Element with desired selector
@@ -413,17 +424,6 @@
     }
 
     return arr;
-  };
-
-  /**
-   * Loops through each item in an array calling a function.
-   * @param {Array}    arr  - Array to be cycled through
-   * @param {Function} func - Function to be called
-   */
-  var each = function (arr, func) {
-    for (var i = 0, arrLen = arr.length; i < arrLen; i++) {
-      func(i, arr[i]);
-    }
   };
 
   /**
