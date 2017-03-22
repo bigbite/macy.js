@@ -134,4 +134,5 @@ Macy.prototype.reInit = function () {
 /**
  * Export Macy
  */
-module.exports = Macy;
+// module.exports = Macy;
+export default Macy;
