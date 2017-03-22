@@ -64,6 +64,7 @@ let Macy = function (opts = defaults) {
 }
 
 Macy.init = function (options) {
+  console.warn('DEPRECIATED WARNING: Macy.init will be removed in v3.0.0 opt to use Macy directly like so Macy({ /*options here*/ }) ')
   return new Macy(options);
 }
 
