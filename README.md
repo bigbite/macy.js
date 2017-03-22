@@ -80,7 +80,7 @@ var macy = Macy({
 });
 ```
 
-From this point on whenever 'Macy' is specified it is referencing the variable you assign macy to when calling the initial call.
+From this point on whenever 'Macy' is specified it is referencing the variable you assign macy to when making the initial call.
 
 ##### **recalculate**
 *Parameters: `{Boolean} refresh - can be null` & `{Boolean} loaded -can be null` *
@@ -146,4 +146,5 @@ Macy.reInit();
 ---
 
 ## *Notes*
-- Browser support for all major browsers including IE9+
+- Browser support for all major browsers including IE11+
+- To support IE10 a dataset polyfill will have to be added

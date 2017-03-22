@@ -53,8 +53,7 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
 
   $eles.forEach((ele, key) => {
     let smallest = 0;
-    let eleHeight = prop(ele, 'height');
-    eleHeight = parseInt(eleHeight.replace('px', ''), 10);
+    let eleHeight = parseInt(ele.offsetHeight, 10);
 
     if (isNaN(eleHeight)) return;
 

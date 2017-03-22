@@ -3,7 +3,7 @@ import './helpers/NodeListFix';
 import $e from './modules/$e';
 import calculate from './modules/calculate';
 import imagesLoaded from './helpers/imagesLoaded';
-import {wait} from './helpers/wait';
+import { wait } from './helpers/wait';
 
 
 const defaults = {
@@ -17,14 +17,15 @@ const defaults = {
  * Masonary Factory
  * @param {Object} opts - The configuration object for macy.
  */
-let Macy = function (opts) {
+let Macy = function (opts = defaults) {
   /**
    * Create instance of macy if not instatiated with new Macy
    */
   if (!(this instanceof Macy)) {
     return new Macy(opts)
   }
-  this.options = Object.assign(defaults, opts) || defaults;
+  this.options = {};
+  Object.assign(this.options, defaults, opts);
   // this.options = opts;
   this.container = $e(opts.container);
 
@@ -60,6 +61,10 @@ let Macy = function (opts) {
 
   this.recalculate(true, false);
   imagesLoaded(imgs, loadingEvent, finishedLoading);
+}
+
+Macy.init = function (options) {
+  return new Macy(options);
 }
 
 /**

@@ -29,6 +29,7 @@ export function getCurrentColumns (options) {
  */
 export function getWidths (options, marginsIncluded = true) {
   let noOfColumns = getCurrentColumns(options);
+  let margin = getColumnMargins(options);
   let margins;
   let width = 100 / noOfColumns;
 
@@ -81,4 +82,9 @@ export function setContainerHeight (ctx) {
   }
 
   container.style.height = `${largest}px`;
+}
+
+
+const getColumnMargins = (opts) => {
+
 }
