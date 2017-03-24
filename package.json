@@ -41,6 +41,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "watch": "rollup -c -w"
+    "build-dev": "rollup -c --environment build:dev",
+    "watch": "rollup -c -w --environment build:dev"
   }
 }
