@@ -43,5 +43,9 @@
     "build": "rollup -c",
     "build-dev": "rollup -c --environment build:dev",
     "watch": "rollup -c -w --environment build:dev"
+  },
+  "dependencies": {
+    "babel-eslint": "^7.2.1",
+    "rollup-plugin-eslint": "^3.0.0"
   }
 }

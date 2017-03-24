@@ -1,4 +1,4 @@
-import {getLeftPosition, getCurrentColumns, getWidths, setContainerHeight} from './calculations';
+import {getLeftPosition, getCurrentColumns, setContainerHeight} from './calculations';
 import prop from '../helpers/prop';
 
 /**
@@ -51,7 +51,7 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
   let cols = getCurrentColumns(ctx.options);
   setUpRows(ctx, cols, refresh);
 
-  $eles.forEach((ele, key) => {
+  $eles.forEach((ele) => {
     let smallest = 0;
     let eleHeight = parseInt(ele.offsetHeight, 10);
 
@@ -91,7 +91,7 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
   let cols = getCurrentColumns(ctx.options);
   setUpRows(ctx, cols, refresh);
 
-  $eles.forEach((ele, key) => {
+  $eles.forEach((ele) => {
 
     if (ctx.lastcol === cols) {
       ctx.lastcol = 0;

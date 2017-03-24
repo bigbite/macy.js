@@ -75,8 +75,8 @@ Macy.init = function (options) {
  */
 Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false, refresh = false) {
   let imgs = $e('img', this.container);
-  let loadingEvent = this.recalculate.bind(this, false, false);
-  let finalEvent = this.recalculate.bind(this, false, true);
+  let loadingEvent = this.recalculate.bind(this, refresh, false);
+  let finalEvent = this.recalculate.bind(this, refresh, true);
 
   if (waitUntilFinish) {
     return imagesLoaded(imgs, null, finalEvent);

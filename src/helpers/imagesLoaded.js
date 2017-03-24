@@ -30,9 +30,9 @@ let imagesLoaded = (imgs, during, after) => {
     if (img.complete) {
       imgComplete++;
       imagesComplete(during, after, {
-          req: imgLen,
-          complete: imgComplete
-        });
+        req: imgLen,
+        complete: imgComplete
+      });
     }
 
     img.addEventListener('load', () => {

@@ -29,7 +29,6 @@ export function getCurrentColumns (options) {
  */
 export function getWidths (options, marginsIncluded = true) {
   let noOfColumns = getCurrentColumns(options);
-  let margin = getColumnMargins(options);
   let margins;
   let width = 100 / noOfColumns;
 
@@ -38,7 +37,7 @@ export function getWidths (options, marginsIncluded = true) {
   }
 
   if (noOfColumns === 1) {
-    return `100%`;
+    return '100%';
   }
 
   margins = (noOfColumns - 1) * options.margin / noOfColumns;
@@ -62,7 +61,7 @@ export function getLeftPosition (ctx, col) {
     return 0;
   }
 
-  margin = (ctx.options.margin - (((noOfColumns - 1) * ctx.options.margin) / noOfColumns)) * (col - 1);
+  margin = (ctx.options.margin - (noOfColumns - 1) * ctx.options.margin / noOfColumns) * (col - 1);
   totalLeft += getWidths(ctx.options, false) * (col - 1);
   str = 'calc(' + totalLeft + '% + ' + margin + 'px)';
 
@@ -82,9 +81,4 @@ export function setContainerHeight (ctx) {
   }
 
   container.style.height = `${largest}px`;
-}
-
-
-const getColumnMargins = (opts) => {
-
 }

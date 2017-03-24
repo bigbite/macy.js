@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "rules": {
+    "no-unused-expressions":       [0],
+    "no-underscore-dangle":        [0],
+    "no-multi-spaces":             [0],
+    "no-extra-parens":             [2],
+    "no-unused-vars":              [2],
+    "no-loop-func":                [0],
+    "key-spacing":                 [0],
+    "quote-props":                 [0],
+    "max-len":                     [0],
+    "strict":                      [0],
+    "indent":                      [2, 2, {"SwitchCase": 1}],
+    "quotes":                      [2, "single", "avoid-escape"],
+    "curly":                       [0],
+    "keyword-spacing":             [2],
+    "space-before-blocks":         [2],
+    "space-before-function-paren": [2],
+  },
+  "globals": {
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jquery": false,
+    "node":  false,
+    "mocha": false,
+  }
+}
