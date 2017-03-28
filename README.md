@@ -48,7 +48,7 @@ Adjust the margin between columns with a pixel value. Don’t forget you can sti
 *Default: `false`*
 If set to true, Macy will wait for all images on the page to load before running. Set to `false` by default, it will run every time an image loads.
 
-##### **breakpoints**
+##### **breakAt**
 
 *Default: `None`*
 This array allows you to specify how the total number of columns will change based on the width of the viewport. Setting an option to `780: 3` for example will adjust the column count to 3 when the viewport is <= 780px.
