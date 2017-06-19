@@ -91,38 +91,34 @@ When called this recalculates the entire layout, this becomes useful if you just
 macy_instance.recalculate();
 ```
 
-##### **onImageLoad**
+##### **runOnImageLoad**
 
-*Parameters: `{Function} During - can be null` & `{Function} After - can be null`*
+*Parameters: `{Function} - Function to run on image load` & `{Boolean} If true it will run everytime an image loadsl`*
 
-onImageLoad is a method used to do something each time and image loads or after all images have been loaded. This helps when using Ajax to make sure the layout is worked out correctly when images are loading. Using this in conjunction with the recalculate function makes your layouts look great no matter how long it takes to load in your images:
+runOnImageLoad is a method used to do something each time and image loads or after all images have been loaded. This helps when using Ajax to make sure the layout is worked out correctly when images are loading. Using this in conjunction with the recalculate function makes your layouts look great no matter how long it takes to load in your images:
 
 ```javascript
-macy_instance.onImageLoad(function () {
-  console.log('Every time an image loads I get fired');
-  macy_instance.recalculate();
-}, function () {
-  console.log('I only get called when all images are loaded');
-  macy_instance.recalculate();
-});
+macy_instance.runOnImageLoad(function () {
+  macy_instance.recalculate(true);
+}, true);
 ```
 
 If you only require it to run once all the images have loaded you can acheive this by passing null as the first parameter:
 
 ```javascript
-macy_instance.onImageLoad(null, function () {
+macy_instance.runOnImageLoad(function () {
   console.log('I only get called when all images are loaded');
-  macy_instance.recalculate();
+  macy_instance.recalculate(true, true);
 });
 ```
 
 If you only require the during function to run then only pass it one function:
 
 ```javascript
-macy_instance.onImageLoad(function () {
+macy_instance.runOnImageLoad(function () {
   console.log('Every time an image loads I get fired');
-  macy_instance.recalculate();
-});
+  macy_instance.recalculate(true);
+}, true);
 ```
 
 ##### **remove**
