@@ -43,6 +43,15 @@ Setting this to false will prioritise equalising the height of each column over 
 *Default: `0`*
 Adjust the margin between columns with a pixel value. Don’t forget you can still apply padding to the elements with standard CSS.
 
+Added in v2.1 you can now have an object for margin. This is optional you can set the margin property to just a number and macy will use it for both. But if you would like to add a different xMargin or yMargin then you can do so like this
+
+```
+margin: {
+  x: 10,
+  y: 16  
+}
+```
+
 ##### **waitForImages**
 
 *Default: `false`*
@@ -51,11 +60,30 @@ If set to true, Macy will wait for all images on the page to load before running
 ##### **breakAt**
 
 *Default: `None`*
-This array allows you to specify how the total number of columns will change based on the width of the viewport. Setting an option to `780: 3` for example will adjust the column count to 3 when the viewport is <= 780px.
+This object allows you to specify how the total number of columns will change based on the width of the viewport. Setting an option to `780: 3` for example will adjust the column count to 3 when the viewport is <= 780px.
 If the viewport resizes after the page has loaded, Macy will rerun to ensure optimum sorting
 
 If the column is set to one then Macy will remove all styling to leave you to style it perfectly on mobile.
 
+Added in v2.1 breakAt now supports changing margin within these breakpoints. 
+
+For example 
+
+```
+{
+  breakAt: {
+    760: {
+      margin: {
+        x: 20,
+        y: 10,
+      },
+      columns: 4
+    }
+  }
+}
+```
+
+If you do not need the modify the margin you can leave it as `760: 4` and macy will work this out for you. Look at the margin option to find out other things you can do.
 
 ## Methods
 

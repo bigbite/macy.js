@@ -1,4 +1,4 @@
-import {getLeftPosition, getCurrentColumns, setContainerHeight} from './calculations';
+import {getLeftPosition, getCurrentColumns, getCurrentMargin, setContainerHeight} from './calculations';
 import prop from '../helpers/prop';
 
 /**
@@ -49,6 +49,7 @@ const setUpRows = (ctx, cols, refresh = false) => {
  */
 export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
   let cols = getCurrentColumns(ctx.options);
+  let margin = getCurrentMargin(ctx.options).y;
   setUpRows(ctx, cols, refresh);
 
   $eles.forEach((ele) => {
@@ -66,7 +67,7 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
     ele.style.position = 'absolute';
     ele.style.top = `${ctx.rows[smallest]}px`;
     ele.style.left = `${ctx.cols[smallest]}`;
-    ctx.rows[smallest] += !isNaN(eleHeight) ? eleHeight + ctx.options.margin : 0;
+    ctx.rows[smallest] += !isNaN(eleHeight) ? eleHeight + margin : 0;
 
     if (markasComplete) {
       ele.dataset.macyComplete = 1;
@@ -89,6 +90,7 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
  */
 export function sort (ctx, $eles, refresh = false, markasComplete = true) {
   let cols = getCurrentColumns(ctx.options);
+  let margin = getCurrentMargin(ctx.options).y;
   setUpRows(ctx, cols, refresh);
 
   $eles.forEach((ele) => {
@@ -104,7 +106,7 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
     ele.style.position = 'absolute';
     ele.style.top = `${ctx.rows[ctx.lastcol]}px`;
     ele.style.left = `${ctx.cols[ctx.lastcol]}`;
-    ctx.rows[ctx.lastcol] += !isNaN(eleHeight) ? eleHeight + ctx.options.margin : 0;
+    ctx.rows[ctx.lastcol] += !isNaN(eleHeight) ? eleHeight + margin : 0;
     ctx.lastcol += 1;
 
     if (markasComplete) {
