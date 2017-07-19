@@ -23,22 +23,22 @@ var macy_instance = Macy({
 
 ## Options
 
-##### **container**
+#### **container**
 *Default: None*
 
 Use this option to specify your target container element to apply Macy too. All direct children of an element with this selector will become sortable items and a height applied to the target container.
 
-##### **columns**
+#### **columns**
 *Default: `4`*
 
 Define the default amount of columns to work with. Use the `breakAt` option to specify breakpoints for this value.
 
-##### **trueOrder**
+#### **trueOrder**
 *Default: `true`*
 
 Setting this to false will prioritise equalising the height of each column over the order of the items themselves.
 
-##### **margin**
+#### **margin**
 
 *Default: `0`*
 Adjust the margin between columns with a pixel value. Don’t forget you can still apply padding to the elements with standard CSS.
@@ -54,12 +54,12 @@ margin: {
 
 When declaring the default margin as an object it requires both and x and y values unlike the breakAt object.
 
-##### **waitForImages**
+#### **waitForImages**
 
 *Default: `false`*
 If set to true, Macy will wait for all images on the page to load before running. Set to `false` by default, it will run every time an image loads.
 
-##### **breakAt**
+#### **breakAt**
 
 *Default: `None`*
 This object allows you to specify how the total number of columns will change based on the width of the viewport. Setting an option to `780: 3` for example will adjust the column count to 3 when the viewport is <= 780px.
