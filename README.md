@@ -52,6 +52,8 @@ margin: {
 }
 ```
 
+When declaring the default margin as an object it requires both and x and y values unlike the breakAt object.
+
 ##### **waitForImages**
 
 *Default: `false`*
@@ -83,7 +85,22 @@ For example
 }
 ```
 
-If you do not need the modify the margin you can leave it as `760: 4` and macy will work this out for you. Look at the margin option to find out other things you can do.
+If you do not need the modify the margin you can leave it as `760: 4` and macy will set the columns to 4. You can also just define a change in just one marginal direction for example:
+
+```
+{
+  breakAt: {
+    760: {
+      margin: {
+        x: 20,
+      },
+      columns: 4
+    }
+  }
+}
+```
+
+This would change the xMargin to 20px when screens are smaller than 760, but the instance will use a previously declared y value.
 
 ## Methods
 

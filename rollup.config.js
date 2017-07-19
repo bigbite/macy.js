@@ -1,3 +1,4 @@
+
 import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 import eslint from 'rollup-plugin-eslint';
@@ -6,7 +7,7 @@ let buildObj = {
   entry: 'src/macy.js',
   format: 'umd',
   moduleName: 'Macy',
-  banner: '/* Macy.js - v2.0.0 */',
+  banner: '/* Macy.js - v2.1.0 */',
   plugins: [
     eslint(),
     babel(),
