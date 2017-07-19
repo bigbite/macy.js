@@ -16,7 +16,7 @@ bower install macy
 
 ## Usage
 ```javascript
-var macy_instance = Macy({
+var macyInstance = Macy({
   // See below for all available options.
 });
 ```
@@ -104,7 +104,7 @@ This would change the xMargin to 20px when screens are smaller than 760, but the
 
 ## Methods
 
-##### **Macy**
+#### **Macy**
 *Parameters: `{Object} args - required`*
 
 This is the initializing function. The function takes an object of properties listed above. The only required property is container which would be the *selector* for the element that contains all the elements you want to be layed out:
@@ -127,61 +127,61 @@ var macy = Macy({
 
 From this point on whenever 'Macy' is specified it is referencing the variable you assign macy to when making the initial call.
 
-##### **recalculate**
+#### **recalculate**
 *Parameters: `{Boolean} refresh - can be null` & `{Boolean} loaded -can be null` *
 
 When called this recalculates the entire layout, this becomes useful if you just used ajax to pull in more content:
 
 ```javascript
-macy_instance.recalculate();
+macyInstance.recalculate();
 ```
 
-##### **runOnImageLoad**
+#### **runOnImageLoad**
 
 *Parameters: `{Function} - Function to run on image load` & `{Boolean} If true it will run everytime an image loadsl`*
 
 runOnImageLoad is a method used to do something each time and image loads or after all images have been loaded. This helps when using Ajax to make sure the layout is worked out correctly when images are loading. Using this in conjunction with the recalculate function makes your layouts look great no matter how long it takes to load in your images:
 
 ```javascript
-macy_instance.runOnImageLoad(function () {
-  macy_instance.recalculate(true);
+macyInstance.runOnImageLoad(function () {
+  macyInstance.recalculate(true);
 }, true);
 ```
 
 If you only require it to run once all the images have loaded you can acheive this by passing null as the first parameter:
 
 ```javascript
-macy_instance.runOnImageLoad(function () {
+macyInstance.runOnImageLoad(function () {
   console.log('I only get called when all images are loaded');
-  macy_instance.recalculate(true, true);
+  macyInstance.recalculate(true, true);
 });
 ```
 
 If you only require the during function to run then only pass it one function:
 
 ```javascript
-macy_instance.runOnImageLoad(function () {
+macyInstance.runOnImageLoad(function () {
   console.log('Every time an image loads I get fired');
-  macy_instance.recalculate(true);
+  macyInstance.recalculate(true);
 }, true);
 ```
 
-##### **remove**
+#### **remove**
 *Parameters: `None`*
 
 Remove does exactly what it says on the tin, it removes all styling and event listeners that Macy added to the DOM:
 
 ```javascript
-macy_instance.remove();
+macyInstance.remove();
 ```
 
-##### **reInit**
+#### **reInit**
 *Parameters: `None`*
 
 Reinitialises the current macy instance;
 
 ```javascript
-macy_instance.reInit();
+macyInstance.reInit();
 ```
 
 ---
