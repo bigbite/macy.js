@@ -100,7 +100,7 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
     }
 
     let eleHeight = prop(ele, 'height');
-    eleHeight = parseInt(eleHeight.replace('px', ''), 10);
+    eleHeight = parseInt(ele.offsetHeight, 10);
 
     if (isNaN(eleHeight)) return;
     ele.style.position = 'absolute';
