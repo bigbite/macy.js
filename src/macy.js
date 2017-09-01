@@ -10,7 +10,8 @@ const defaults = {
   columns: 4,
   margin: 2,
   trueOrder: true,
-  waitForImages: false
+  waitForImages: false,
+  breakAt: {}
 };
 
 /**
