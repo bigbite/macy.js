@@ -4,6 +4,7 @@ import $e from './modules/$e';
 import calculate from './modules/calculate';
 import imagesLoaded from './helpers/imagesLoaded';
 import { wait } from './helpers/wait';
+import Queue from './modules/queue';
 
 
 const defaults = {
@@ -25,10 +26,12 @@ let Macy = function (opts = defaults) {
   if (!(this instanceof Macy)) {
     return new Macy(opts)
   }
+
   this.options = {};
   Object.assign(this.options, defaults, opts);
   // this.options = opts;
   this.container = $e(opts.container);
+  this.queue = new Queue();
 
   // Checks if container element exists
   if (this.container instanceof $e || !this.container) {
@@ -51,7 +54,7 @@ let Macy = function (opts = defaults) {
   let imgs = $e('img', this.container);
 
   this.resizer = wait(() => {
-    finishedLoading();
+    this.queue.add(() => finishedLoading());
   }, 100);
 
   window.addEventListener('resize', this.resizer);
@@ -108,7 +111,7 @@ Macy.prototype.runOnImageLoad = function (func, everyLoad = false) {
  * @param  {Boolean} loaded  - When true it sets the recalculated elements to be marked as complete
  */
 Macy.prototype.recalculate = function (refresh = false, loaded = true) {
-  return calculate(this, refresh, loaded);
+  return this.queue.add(() => calculate(this, refresh, loaded));
 }
 
 /**
