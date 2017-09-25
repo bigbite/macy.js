@@ -2,9 +2,10 @@ import './helpers/NodeListFix';
 
 import $e from './modules/$e';
 import calculate from './modules/calculate';
-import imagesLoaded from './helpers/imagesLoaded';
+import imagesLoaded, { imagesLoadedNew } from './helpers/imagesLoaded';
 import { wait } from './helpers/wait';
 import Queue from './modules/queue';
+import EventsManager from './modules/events';
 
 
 const defaults = {
@@ -12,16 +13,18 @@ const defaults = {
   margin: 2,
   trueOrder: true,
   waitForImages: false,
-  breakAt: {}
+  useImageLoader: true,
+  breakAt: {},
+  useOwnImageLoader: false
 };
 
 /**
  * Masonary Factory
  * @param {Object} opts - The configuration object for macy.
  */
-let Macy = function (opts = defaults) {
+const Macy = function (opts = defaults) {
   /**
-   * Create instance of macy if not instatiated with new Macy
+   * Create instance of macy if not instantiated with new Macy
    */
   if (!(this instanceof Macy)) {
     return new Macy(opts)
@@ -32,7 +35,7 @@ let Macy = function (opts = defaults) {
   // this.options = opts;
   this.container = $e(opts.container);
   this.queue = new Queue();
-
+  this.events = new EventsManager(this);
   // Checks if container element exists
   if (this.container instanceof $e || !this.container) {
     return opts.debug ? console.error('Error: Container not found') : false;
@@ -48,29 +51,30 @@ let Macy = function (opts = defaults) {
   this.container.style.position = 'relative';
   this.rows = [];
 
-  let loadingEvent = this.recalculate.bind(this, false, false);
-  let finishedLoading = this.recalculate.bind(this, true, true);
-
   let imgs = $e('img', this.container);
 
   this.resizer = wait(() => {
-    this.queue.add(() => finishedLoading());
+    this.emit(this.constants.EVENT_RESIZE);
+    this.queue.add(() => this.recalculate(true, true));
   }, 100);
 
   window.addEventListener('resize', this.resizer);
+  this.on(this.constants.EVENT_IMAGE_LOAD, () => this.recalculate(false, false));
+  this.on(this.constants.EVENT_IMAGE_COMPLETE, () => this.recalculate(true, true));
+  // imagesLoaded(imgs, null, finishedLoading)
 
-  if (opts.waitForImages) {
-    return imagesLoaded(imgs, null, finishedLoading);
+  if (!opts.useOwnImageLoader) {
+    // console.log('here');
+    imagesLoadedNew(this, imgs, !opts.waitForImages);
   }
 
-  this.recalculate(true, false);
-  imagesLoaded(imgs, loadingEvent, finishedLoading);
-}
+  this.emit(this.constants.EVENT_INITIALIZED);
+};
 
 Macy.init = function (options) {
-  console.warn('Depreciated: Macy.init will be removed in v3.0.0 opt to use Macy directly like so Macy({ /*options here*/ }) ')
+  console.warn('Depreciated: Macy.init will be removed in v3.0.0 opt to use Macy directly like so Macy({ /*options here*/ }) ');
   return new Macy(options);
-}
+};
 
 /**
  * Public method for recalculating image positions when the images have loaded.
@@ -79,16 +83,8 @@ Macy.init = function (options) {
  */
 Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false, refresh = false) {
   let imgs = $e('img', this.container);
-  let loadingEvent = this.recalculate.bind(this, refresh, false);
-  let finalEvent = this.recalculate.bind(this, refresh, true);
-
-  if (waitUntilFinish) {
-    return imagesLoaded(imgs, null, finalEvent);
-  }
-
-  loadingEvent();
-  return imagesLoaded(imgs, loadingEvent, finalEvent);
-}
+  return imagesLoadedNew(this, imgs, !waitUntilFinish);
+};
 
 /**
  * Run a function on every image load or once all images are loaded
@@ -97,13 +93,14 @@ Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false, refre
  */
 Macy.prototype.runOnImageLoad = function (func, everyLoad = false) {
   let imgs = $e('img', this.container);
+  this.on(this.constants.EVENT_IMAGE_COMPLETE, func);
 
   if (everyLoad) {
-    return imagesLoaded(imgs, func, func);
+    this.on(this.constants.EVENT_IMAGE_LOAD, func);
   }
 
-  return imagesLoaded(imgs, null, func);
-}
+  return imagesLoadedNew(this, imgs, everyLoad);
+};
 
 /**
  * Recalculates masonory positions
@@ -116,7 +113,7 @@ Macy.prototype.recalculate = function (refresh = false, loaded = true) {
   }
 
   return this.queue.add(() => calculate(this, refresh, loaded));
-}
+};
 
 /**
  * Destroys macy instance
@@ -130,15 +127,32 @@ Macy.prototype.remove = function () {
   });
 
   this.container.removeAttribute('style');
-}
+};
 
 /**
  * ReInitializes the macy instance using the already defined options
  */
 Macy.prototype.reInit = function () {
   this.recalculate(true, true);
+  this.emit(this.constants.EVENT_INITIALIZED);
   window.addEventListener('resize', this.resizer);
-}
+};
+
+Macy.prototype.on = function (key, func) {
+  this.events.on(key, func);
+};
+
+Macy.prototype.emit = function (key) {
+  this.events.emit(key);
+};
+
+Macy.prototype.constants = {
+  EVENT_INITIALIZED: 'macy.initialized',
+  EVENT_RECALCULATED: 'macy.recalculated',
+  EVENT_IMAGE_LOAD: 'macy.images.load',
+  EVENT_IMAGE_COMPLETE: 'macy.images.complete',
+  EVENT_RESIZE: 'macy.resize'
+};
 
 /**
  * Export Macy

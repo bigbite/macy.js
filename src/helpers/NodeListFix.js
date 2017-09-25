@@ -1,4 +1,4 @@
-let methods = Object.getOwnPropertyNames(Array.prototype);
+const methods = Object.getOwnPropertyNames(Array.prototype);
 
 methods.forEach((methodName) => {
   if (methodName !== 'length') {

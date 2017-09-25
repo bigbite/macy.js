@@ -8,9 +8,12 @@ import prop from '../helpers/prop';
  * @param  {Boolean} refresh  - Should columns and rows be reset
  */
 const setUpRows = (ctx, cols, refresh = false) => {
-
   if (!ctx.lastcol) {
     ctx.lastcol = 0;
+  }
+
+  if (ctx.rows.length < 1) {
+    refresh = true;
   }
 
   // Reset rows

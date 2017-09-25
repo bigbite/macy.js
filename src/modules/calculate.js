@@ -3,10 +3,10 @@ import {getWidths} from './calculations';
 import * as cols from './columns';
 
 /**
- * Calculates the column widths and postitions dependant on options.
+ * Calculates the column widths and positions dependant on options.
  * @param  {Macy}  ctx       - Macy instance
  * @param  {Boolean} refresh - Should calculate recalculate all elements
- * @param  {Boolean} loaded  - Should all elements be marked as compelete
+ * @param  {Boolean} loaded  - Should all elements be marked as complete
  */
 const calculate = (ctx, refresh = false, loaded = true) => {
   let children = refresh ? ctx.container.children : $e(':scope > *:not([data-macy-complete="1"])', ctx.container);
@@ -20,10 +20,11 @@ const calculate = (ctx, refresh = false, loaded = true) => {
   });
 
   if (ctx.options.trueOrder) {
-    return cols.sort(ctx, children, refresh, loaded);
+    cols.sort(ctx, children, refresh, loaded);
+    return ctx.emit(ctx.constants.EVENT_RECALCULATED);//cols.sort(ctx, children, refresh, loaded);
   }
-
-  return cols.shuffle(ctx, children, refresh, loaded)
+  cols.shuffle(ctx, children, refresh, loaded);
+  return ctx.emit(ctx.constants.EVENT_RECALCULATED); //cols.shuffle(ctx, children, refresh, loaded);
 };
 
 export default calculate;

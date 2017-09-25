@@ -4,7 +4,7 @@
  * @param  {HTMLElement} context    - The parent to find the selector in
  * @return {HTMLElement/HTMLCollection}
  */
-let $e = function (parameter, context) {
+const $e = function (parameter, context) {
   if (!(this instanceof $e)) {
     return new $e(parameter, context);
   }

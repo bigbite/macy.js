@@ -6,7 +6,7 @@ import async from './async';
  * @param  {Function} after  - A function to be ran once all images are loaded
  * @param  {Object} data     - An object containing number of complete images and number of loaded
  */
-let imagesComplete = (during, after, data) => {
+const imagesComplete = (during, after, data) => {
   if (during) {
     async(during);
   }
@@ -22,7 +22,7 @@ let imagesComplete = (during, after, data) => {
  * @param  {Function} during - Function to on each image load
  * @param  {Function} after  - Function to run once all images loaded
  */
-let imagesLoaded = (imgs, during, after) => {
+const imagesLoaded = (imgs, during, after) => {
   let imgLen = imgs.length;
   let imgComplete = 0;
 
@@ -44,6 +44,14 @@ let imagesLoaded = (imgs, during, after) => {
     });
   });
 };
+
+export function imagesLoadedNew(ctx, imgs, during = false) {
+  if (during) {
+    return imagesLoaded(imgs, () => ctx.emit(ctx.constants.EVENT_IMAGE_LOAD), () => ctx.emit(ctx.constants.EVENT_IMAGE_COMPLETE));
+  }
+
+  imagesLoaded(imgs, null, () => ctx.emit(ctx.constants.EVENT_IMAGE_COMPLETE));
+}
 
 
 export default imagesLoaded;
