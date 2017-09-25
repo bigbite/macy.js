@@ -111,6 +111,10 @@ Macy.prototype.runOnImageLoad = function (func, everyLoad = false) {
  * @param  {Boolean} loaded  - When true it sets the recalculated elements to be marked as complete
  */
 Macy.prototype.recalculate = function (refresh = false, loaded = true) {
+  if (loaded) {
+    this.queue.clear();
+  }
+
   return this.queue.add(() => calculate(this, refresh, loaded));
 }
 

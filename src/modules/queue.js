@@ -30,6 +30,10 @@ class Queue {
     this.events.push(event);
     this.run();
   }
+
+  clear () {
+    this.events = [];
+  }
 }
 
 export default Queue;
