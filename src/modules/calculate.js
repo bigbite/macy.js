@@ -23,6 +23,7 @@ const calculate = (ctx, refresh = false, loaded = true) => {
     cols.sort(ctx, children, refresh, loaded);
     return ctx.emit(ctx.constants.EVENT_RECALCULATED);//cols.sort(ctx, children, refresh, loaded);
   }
+
   cols.shuffle(ctx, children, refresh, loaded);
   return ctx.emit(ctx.constants.EVENT_RECALCULATED); //cols.shuffle(ctx, children, refresh, loaded);
 };

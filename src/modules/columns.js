@@ -26,6 +26,8 @@ const setUpRows = (ctx, cols, refresh = false) => {
       ctx.rows[i] = 0;
       ctx.cols[i] = getLeftPosition(ctx, i);
     }
+
+    return;
   }
 
   if (ctx.tmpRows) {
