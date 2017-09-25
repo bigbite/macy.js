@@ -33,8 +33,13 @@ const $e = function (parameter, context) {
  * @param  {HTMLElement} context    - The parent to find the selector in
  * @return {NodeList}
  */
-$e.prototype.byCss = function (parameter, context) {
-  return (context || document).querySelectorAll(parameter);
+$e.prototype.byCss = function (parameter, context = false) {
+  if (context) {
+    console.log(parameter);
+    return context.querySelectorAll(parameter);
+  }
+
+  return document.querySelectorAll(parameter);
 };
 
 

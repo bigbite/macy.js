@@ -6,6 +6,7 @@ import { imagesLoadedNew } from './helpers/imagesLoaded';
 import { wait } from './helpers/wait';
 import Queue from './modules/queue';
 import EventsManager from './modules/events';
+import scopeShim from './helpers/scopeshim';
 
 
 const defaults = {
@@ -29,6 +30,8 @@ const Macy = function (opts = defaults) {
   if (!(this instanceof Macy)) {
     return new Macy(opts)
   }
+
+  scopeShim();
 
   this.options = {};
   Object.assign(this.options, defaults, opts);
