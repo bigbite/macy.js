@@ -1,10 +1,10 @@
 class EventManager {
-  constructor(instance = false) {
+  constructor (instance = false) {
     this.events = {};
     this.instance = instance;
   }
 
-  on(key = false, func = false) {
+  on (key = false, func = false) {
     if (!key || !func) {
       return false;
     }
@@ -16,7 +16,7 @@ class EventManager {
     return this.events[key].push(func);
   }
 
-  emit(key = false) {
+  emit (key = false) {
     if (!key || !Array.isArray(this.events[key])) {
       return false;
     }

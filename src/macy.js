@@ -2,7 +2,7 @@ import './helpers/NodeListFix';
 
 import $e from './modules/$e';
 import calculate from './modules/calculate';
-import imagesLoaded, { imagesLoadedNew } from './helpers/imagesLoaded';
+import { imagesLoadedNew } from './helpers/imagesLoaded';
 import { wait } from './helpers/wait';
 import Queue from './modules/queue';
 import EventsManager from './modules/events';
@@ -81,7 +81,7 @@ Macy.init = function (options) {
  * @param  {Boolean} waitUntilFinish - if true it will not recalculate until all images are finished loading
  * @param  {Boolean} refresh         - If true it will recalculate the entire container instead of just new elements.
  */
-Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false, refresh = false) {
+Macy.prototype.recalculateOnImageLoad = function (waitUntilFinish = false) {
   let imgs = $e('img', this.container);
   return imagesLoadedNew(this, imgs, !waitUntilFinish);
 };

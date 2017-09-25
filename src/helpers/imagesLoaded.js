@@ -45,7 +45,7 @@ const imagesLoaded = (imgs, during, after) => {
   });
 };
 
-export function imagesLoadedNew(ctx, imgs, during = false) {
+export function imagesLoadedNew (ctx, imgs, during = false) {
   if (during) {
     return imagesLoaded(imgs, () => ctx.emit(ctx.constants.EVENT_IMAGE_LOAD), () => ctx.emit(ctx.constants.EVENT_IMAGE_COMPLETE));
   }
