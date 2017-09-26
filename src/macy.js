@@ -37,8 +37,8 @@ const Macy = function (opts = defaults) {
   Object.assign(this.options, defaults, opts);
   // this.options = opts;
   this.container = $e(opts.container);
-  this.queue = new Queue();
-  this.events = new EventsManager(this);
+  this.queue = Queue();
+  this.events = EventsManager(this);
   // Checks if container element exists
   if (this.container instanceof $e || !this.container) {
     return opts.debug ? console.error('Error: Container not found') : false;
@@ -64,10 +64,8 @@ const Macy = function (opts = defaults) {
   window.addEventListener('resize', this.resizer);
   this.on(this.constants.EVENT_IMAGE_LOAD, () => this.recalculate(false, false));
   this.on(this.constants.EVENT_IMAGE_COMPLETE, () => this.recalculate(true, true));
-  // imagesLoaded(imgs, null, finishedLoading)
 
   if (!opts.useOwnImageLoader) {
-    // console.log('here');
     imagesLoadedNew(this, imgs, !opts.waitForImages);
   }
 
@@ -149,13 +147,15 @@ Macy.prototype.emit = function (key) {
   this.events.emit(key);
 };
 
-Macy.prototype.constants = {
+Macy.constants = {
   EVENT_INITIALIZED: 'macy.initialized',
   EVENT_RECALCULATED: 'macy.recalculated',
   EVENT_IMAGE_LOAD: 'macy.images.load',
   EVENT_IMAGE_COMPLETE: 'macy.images.complete',
   EVENT_RESIZE: 'macy.resize'
 };
+
+Macy.prototype.constants = Macy.constants;
 
 /**
  * Export Macy
