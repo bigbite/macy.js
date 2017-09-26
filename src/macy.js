@@ -1,11 +1,9 @@
 import './helpers/NodeListFix';
 
 import $e from './modules/$e';
+import setup from './modules/setup.js'
 import calculate from './modules/calculate';
 import { imagesLoadedNew } from './helpers/imagesLoaded';
-import { wait } from './helpers/wait';
-import Queue from './modules/queue';
-import EventsManager from './modules/events';
 import scopeShim from './helpers/scopeshim';
 
 
@@ -16,8 +14,11 @@ const defaults = {
   waitForImages: false,
   useImageLoader: true,
   breakAt: {},
-  useOwnImageLoader: false
+  useOwnImageLoader: false,
+  onInit: false,
 };
+
+scopeShim();
 
 /**
  * Masonary Factory
@@ -31,46 +32,12 @@ const Macy = function (opts = defaults) {
     return new Macy(opts)
   }
 
-  scopeShim();
-
   this.options = {};
   Object.assign(this.options, defaults, opts);
-  // this.options = opts;
-  this.container = $e(opts.container);
-  this.queue = new Queue();
-  this.events = new EventsManager(this);
-  // Checks if container element exists
-  if (this.container instanceof $e || !this.container) {
-    return opts.debug ? console.error('Error: Container not found') : false;
-  }
 
-  // Remove container selector from the options
-  delete this.options.container;
-
-  if (this.container.length) {
-    this.container = this.container[0];
-  }
-
-  this.container.style.position = 'relative';
-  this.rows = [];
-
-  let imgs = $e('img', this.container);
-
-  this.resizer = wait(() => {
-    this.emit(this.constants.EVENT_RESIZE);
-    this.queue.add(() => this.recalculate(true, true));
-  }, 100);
-
-  window.addEventListener('resize', this.resizer);
-  this.on(this.constants.EVENT_IMAGE_LOAD, () => this.recalculate(false, false));
-  this.on(this.constants.EVENT_IMAGE_COMPLETE, () => this.recalculate(true, true));
-
-  if (!opts.useOwnImageLoader) {
-    imagesLoadedNew(this, imgs, !opts.waitForImages);
-  }
-
-  this.emit(this.constants.EVENT_INITIALIZED);
+  setup(this);
 };
+
 
 Macy.init = function (options) {
   console.warn('Depreciated: Macy.init will be removed in v3.0.0 opt to use Macy directly like so Macy({ /*options here*/ }) ');
