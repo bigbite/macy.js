@@ -37,8 +37,8 @@ const Macy = function (opts = defaults) {
   Object.assign(this.options, defaults, opts);
   // this.options = opts;
   this.container = $e(opts.container);
-  this.queue = Queue();
-  this.events = EventsManager(this);
+  this.queue = new Queue();
+  this.events = new EventsManager(this);
   // Checks if container element exists
   if (this.container instanceof $e || !this.container) {
     return opts.debug ? console.error('Error: Container not found') : false;

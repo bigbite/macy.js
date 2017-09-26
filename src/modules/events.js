@@ -1,8 +1,4 @@
 const EventManager = function (instance = false) {
-  if (!(this instanceof EventManager)) {
-    return new EventManager(instance);
-  }
-
   this.events = {};
   this.instance = instance;
 };
