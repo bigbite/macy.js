@@ -1,3 +1,5 @@
+import foreach from '../helpers/foreach';
+
 const EventManager = function (instance = false) {
   this.events = {};
   this.instance = instance;
@@ -20,7 +22,7 @@ EventManager.prototype.emit = function (key = false) {
     return false;
   }
 
-  this.events[key].forEach((fn) => fn(this.instance));
+  foreach(this.events[key], (fn) => fn(this.instance));
 };
 
 export default EventManager;

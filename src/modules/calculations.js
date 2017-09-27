@@ -1,4 +1,5 @@
 import isObject from '../helpers/isObject';
+import foreach from '../helpers/foreach';
 
 /**
  * Return the current spacing options based on document size.
@@ -139,9 +140,9 @@ export function setContainerHeight (ctx) {
   let largest = 0;
   let {container, rows} = ctx;
 
-  for (var i = rows.length - 1; i >= 0; i--) {
-    largest = rows[i] > largest ? rows[i] : largest;
-  }
+  foreach(rows, (row) => {
+    largest = row > largest ? row : largest;
+  });
 
   container.style.height = `${largest}px`;
 }

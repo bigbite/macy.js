@@ -34,7 +34,7 @@ Use this option to specify your target container element to apply Macy too. All 
 Define the default amount of columns to work with. Use the `breakAt` option to specify breakpoints for this value.
 
 #### **trueOrder**
-*Default: `true`*
+*Default: `false`*
 
 Setting this to false will prioritise equalising the height of each column over the order of the items themselves.
 

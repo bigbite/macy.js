@@ -1,3 +1,5 @@
+import foreach from '../helpers/foreach';
+
 const Queue = function (events = false) {
   this.running = false;
   this.events = [];
@@ -21,7 +23,7 @@ Queue.prototype.add = function (event = false) {
   }
 
   if (Array.isArray(event)) {
-    return event.forEach((evt) => this.add(evt));
+    return foreach(event, (evt) => this.add(evt));
   }
 
   this.events.push(event);

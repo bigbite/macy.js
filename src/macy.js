@@ -1,16 +1,16 @@
-import './helpers/NodeListFix';
-
 import $e from './modules/$e';
 import setup from './modules/setup.js'
 import calculate from './modules/calculate';
 import { imagesLoadedNew } from './helpers/imagesLoaded';
 import scopeShim from './helpers/scopeshim';
 
+import foreach from './helpers/foreach';
+
 
 const defaults = {
   columns: 4,
   margin: 2,
-  trueOrder: true,
+  trueOrder: false,
   waitForImages: false,
   useImageLoader: true,
   breakAt: {},
@@ -89,7 +89,7 @@ Macy.prototype.recalculate = function (refresh = false, loaded = true) {
 Macy.prototype.remove = function () {
   window.removeEventListener('resize', this.resizer);
 
-  this.container.children.forEach((child) => {
+  foreach(this.container.children, (child) => {
     child.removeAttribute('data-macy-complete');
     child.removeAttribute('style');
   });
@@ -104,6 +104,8 @@ Macy.prototype.reInit = function () {
   this.recalculate(true, true);
   this.emit(this.constants.EVENT_INITIALIZED);
   window.addEventListener('resize', this.resizer);
+  this.container.style.position = 'relative';
+
 };
 
 Macy.prototype.on = function (key, func) {
