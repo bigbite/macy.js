@@ -50,7 +50,7 @@ import { map } from './foreach';
  * Checks if an image has loaded by checking the height and width
  * @param img {Node} - Image element
  */
-const imageHasLoaded = (img) => !'naturalHeight' in img && img.naturalHeight + img.naturalWidth === 0 || img.width + img.height === 0;
+const imageHasLoaded = (img) => !('naturalHeight' in img && img.naturalHeight + img.naturalWidth === 0) || img.width + img.height !== 0;
 
 /**
  * Returns a promise the emits events to macy context if loaded/errors
