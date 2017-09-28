@@ -105,23 +105,37 @@ Macy.prototype.reInit = function () {
   this.emit(this.constants.EVENT_INITIALIZED);
   window.addEventListener('resize', this.resizer);
   this.container.style.position = 'relative';
-
 };
 
+/**
+ * Event listener for macy events
+ * @param key {String} - Event name to listen to
+ * @param func {Function} - Function to be called when event happens
+ */
 Macy.prototype.on = function (key, func) {
   this.events.on(key, func);
 };
 
-Macy.prototype.emit = function (key) {
-  this.events.emit(key);
+/**
+ * Emit an event to macy.
+ * @param key {String} - Event name to listen to
+ * @param data {Object} - Extra data to be passed to the event object that is passed to the event listener.
+ */
+Macy.prototype.emit = function (key, data) {
+  this.events.emit(key, data);
 };
 
+/**
+ * Macy constants
+ * @type {{EVENT_INITIALIZED: string, EVENT_RECALCULATED: string, EVENT_IMAGE_LOAD: string, EVENT_IMAGE_ERROR: string, EVENT_IMAGE_COMPLETE: string, EVENT_RESIZE: string}}
+ */
 Macy.constants = {
   EVENT_INITIALIZED: 'macy.initialized',
   EVENT_RECALCULATED: 'macy.recalculated',
-  EVENT_IMAGE_LOAD: 'macy.images.load',
+  EVENT_IMAGE_LOAD: 'macy.image.load',
+  EVENT_IMAGE_ERROR: 'macy.image.error',
   EVENT_IMAGE_COMPLETE: 'macy.images.complete',
-  EVENT_RESIZE: 'macy.resize'
+  EVENT_RESIZE: 'macy.resize',
 };
 
 Macy.prototype.constants = Macy.constants;

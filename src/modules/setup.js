@@ -4,11 +4,19 @@ import EventsManager from './events';
 import $e from './$e';
 import { imagesLoadedNew } from '../helpers/imagesLoaded';
 
+/**
+ * create a resize event that adds recalculate to the event queue;
+ * @param ctx {Object} - Macy instance
+ */
 const createResizeEvent = (ctx) => wait(() => {
   ctx.emit(ctx.constants.EVENT_RESIZE);
   ctx.queue.add(() => ctx.recalculate(true, true));
 }, 100);
 
+/**
+ * Setup the containing element with the correct styles and attaches it to the macy instance
+ * @param ctx {Object} - Macy instance
+ */
 const setupContainer = (ctx) => {
   // this.options = opts;
   ctx.container = $e(ctx.options.container);
@@ -28,6 +36,10 @@ const setupContainer = (ctx) => {
   ctx.container.style.position = 'relative';
 };
 
+/**
+ * Generates the basic state objects for macy to run
+ * @param ctx {Object} - Macy instance
+ */
 const setupState = (ctx) => {
   ctx.queue = new Queue();
   ctx.events = new EventsManager(ctx);
@@ -35,6 +47,10 @@ const setupState = (ctx) => {
   ctx.resizer = createResizeEvent(ctx);
 };
 
+/**
+ * Sets up event listeners for resize and image loading (if required)
+ * @param ctx {Object} - Macy instance
+ */
 const setupEventListeners = (ctx) => {
   let imgs = $e('img', ctx.container);
 
