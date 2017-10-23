@@ -1,5 +1,6 @@
 import {getLeftPosition, getCurrentColumns, getCurrentMargin, setContainerHeight} from './calculations';
 import prop from '../helpers/prop';
+import foreach from '../helpers/foreach';
 
 /**
  * Sets up the required data for the shuffle and sort method
@@ -8,9 +9,12 @@ import prop from '../helpers/prop';
  * @param  {Boolean} refresh  - Should columns and rows be reset
  */
 const setUpRows = (ctx, cols, refresh = false) => {
-
   if (!ctx.lastcol) {
     ctx.lastcol = 0;
+  }
+
+  if (ctx.rows.length < 1) {
+    refresh = true;
   }
 
   // Reset rows
@@ -23,6 +27,8 @@ const setUpRows = (ctx, cols, refresh = false) => {
       ctx.rows[i] = 0;
       ctx.cols[i] = getLeftPosition(ctx, i);
     }
+
+    return;
   }
 
   if (ctx.tmpRows) {
@@ -52,7 +58,7 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
   let margin = getCurrentMargin(ctx.options).y;
   setUpRows(ctx, cols, refresh);
 
-  $eles.forEach((ele) => {
+  foreach($eles, (ele) => {
     let smallest = 0;
     let eleHeight = parseInt(ele.offsetHeight, 10);
 
@@ -93,7 +99,7 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
   let margin = getCurrentMargin(ctx.options).y;
   setUpRows(ctx, cols, refresh);
 
-  $eles.forEach((ele) => {
+  foreach($eles, (ele) => {
 
     if (ctx.lastcol === cols) {
       ctx.lastcol = 0;

@@ -34,7 +34,7 @@ Use this option to specify your target container element to apply Macy too. All 
 Define the default amount of columns to work with. Use the `breakAt` option to specify breakpoints for this value.
 
 #### **trueOrder**
-*Default: `true`*
+*Default: `false`*
 
 Setting this to false will prioritise equalising the height of each column over the order of the items themselves.
 
@@ -58,6 +58,13 @@ When declaring the default margin as an object it requires both and x and y valu
 
 *Default: `false`*
 If set to true, Macy will wait for all images on the page to load before running. Set to `false` by default, it will run every time an image loads.
+
+
+#### **useOwnImageLoader**
+
+*Default: `false`*
+
+Set this to true if you would prefer to use a different image loaded library.
 
 #### **breakAt**
 
@@ -184,6 +191,38 @@ Reinitialises the current macy instance;
 macyInstance.reInit();
 ```
 
+#### **on**
+*Parameters: {String} - Event key, {Function} the function to run when the event occurs*
+
+
+This would console log when all images are loaded.
+```javascript
+macyInstance.on(macyInstance.constants.EVENT_IMAGE_COMPLETE. function (ctx) {
+  console.log('all images have loaded');
+});
+```
+
+#### **emit**
+*Parameters: {String} - Event key*
+
+Emit an event, although macy does not utilise most of these events, these are more to trigger your own functions.
+
+---
+
+## *Constants*
+
+Macy now has some constants available to be used with in the events system. This is to make sure the functions are targetting the correct event as the naming may be subject to change
+They are all accessible under `macyInstance.constants`
+
+Currently available constants
+
+| Key                  | Value                    | Description                                                           |
+|----------------------|--------------------------|-----------------------------------------------------------------------|
+| EVENT_INITIALIZED    | `'macy.initialized'`     | This is the event constant for when macy is initialized/reinitialized |
+| EVENT_RECALCULATED   | `'macy.recalculated'`    | This is the event constant for every time the layout is recalculated  |
+| EVENT_IMAGE_LOAD     | `'macy.images.load'`     | This is the event constant for when an image loads                    |
+| EVENT_IMAGE_COMPLETE | `'macy.images.complete'` | This is the event constant for when all images are complete           |
+| EVENT_RESIZE         | `'macy.resize'`          | This is the event constant for when the document is resized           |
 ---
 
 ## *Notes*

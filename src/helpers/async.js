@@ -3,7 +3,7 @@
  * @param  {Function} fn  - The Function to be ran asynchronously
  * @param  {Function} cb  - A optional function that runs after fn
  */
-let async = (fn, cb) => {
+const async = (fn, cb) => {
   setTimeout(() => {
     let x = fn();
     if (cb) {
