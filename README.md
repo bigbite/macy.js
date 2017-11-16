@@ -226,5 +226,6 @@ Currently available constants
 ---
 
 ## *Notes*
-- Browser support for all major browsers including IE11+
+- Browser support for all major browsers excluding IE11
+- IE11 requires a Promise polyfill for image loading to work
 - To support IE10 a dataset polyfill will have to be added
