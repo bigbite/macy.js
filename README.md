@@ -66,6 +66,11 @@ If set to true, Macy will wait for all images on the page to load before running
 
 Set this to true if you would prefer to use a different image loaded library.
 
+#### **mobileFirst**
+*Default: `false`*
+
+Setting this value to true will alter how the breakAt options will work. Macy will now work in a mobile first way so the default `columns` will be the default then if for example you have `400: 2` in your breakAt object, if the document is greater or equal to 400px the column count will be 2. 
+
 #### **breakAt**
 
 *Default: `None`*

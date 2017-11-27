@@ -103,39 +103,22 @@
 
     <script src="../dist/macy.js"></script>
     <script>
-       var masonry = new Macy({
-        container: '#macy-container',
-        trueOrder: false,
-        waitForImages: false,
-        useOwnImageLoader: false,
-        debug: true,
-        margin: {
-            x: 10,
-            y: 10
-        },
-        columns: 6,
-        breakAt: {
-          1200: {
-            columns: 5,
-            margin: {
-                x: 23,
-                y: 4
+        var masonry = new Macy({
+            container: '#macy-container',
+            trueOrder: false,
+            waitForImages: false,
+            useOwnImageLoader: false,
+            debug: true,
+            mobileFirst: true,
+            columns: 1,
+            margin: 24,
+            breakAt: {
+                1200: 6,
+                940: 5,
+                520: 3,
+                400: 2
             }
-          },
-          940: {
-            margin: {
-                y: 23
-            }
-          },
-          520: {
-            columns: 3,
-            margin: 3,
-          },
-          400: {
-            columns: 2
-          }
-        }
-      });
+        });
     </script>
 </body>
 </html>
