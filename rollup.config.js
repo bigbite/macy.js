@@ -3,20 +3,36 @@ import babel from 'rollup-plugin-babel';
 import uglify from 'rollup-plugin-uglify';
 import eslint from 'rollup-plugin-eslint';
 
-let buildObj = {
-  entry: 'src/macy.js',
-  format: 'umd',
-  moduleName: 'Macy',
-  banner: '/* Macy.js - v2.3.0 */',
+let umd = {
+  input: 'src/macy.js',
+  output: {
+    file: 'dist/macy.js',
+    format: 'umd',
+    name: 'Macy',
+    banner: '/* Macy.js - v2.3.0 */',
+  },
   plugins: [
     eslint(),
     babel(),
-  ],
-  dest: 'dist/macy.js'
+  ]
+};
+
+let es = {
+  input: 'src/macy.js',
+  output: {
+    file: 'dist/macy.es.js',
+    format: 'es',
+    name: 'Macy',
+    banner: '/* Macy.js - v2.3.0 */',
+  },
+  plugins: [
+    eslint(),
+    babel(),
+  ]
 };
 
 if (process.env.build !== 'dev') {
-  buildObj.plugins.push(uglify());
+  umd.plugins.push(uglify());
 }
 
-export default buildObj;
+export default [umd, es];
