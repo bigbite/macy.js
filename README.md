@@ -15,6 +15,21 @@ bower install macy
 ```
 
 ## Usage
+
+Manually [Download](https://github.com/bigbitecreative/macy.js/archive/master.zip) the script and link `dist/macy.js` in your HTML:
+
+```html
+<script src="macy.js"></script>
+```
+
+Or Import ES Module in a module bundler:
+
+```javascript
+import Macy from 'macy';
+```
+
+Now you can start using Macy:
+
 ```javascript
 var macyInstance = Macy({
   // See below for all available options.
@@ -69,7 +84,7 @@ Set this to true if you would prefer to use a different image loaded library.
 #### **mobileFirst**
 *Default: `false`*
 
-Setting this value to true will alter how the breakAt options will work. Macy will now work in a mobile first way so the default `columns` will be the default then if for example you have `400: 2` in your breakAt object, if the document is greater or equal to 400px the column count will be 2. 
+Setting this value to true will alter how the breakAt options will work. Macy will now work in a mobile first way so the default `columns` will be the default then if for example you have `400: 2` in your breakAt object, if the document is greater or equal to 400px the column count will be 2.
 
 #### **breakAt**
 
@@ -79,9 +94,9 @@ If the viewport resizes after the page has loaded, Macy will rerun to ensure opt
 
 If the column is set to one then Macy will remove all styling to leave you to style it perfectly on mobile.
 
-Added in v2.1 breakAt now supports changing margin within these breakpoints. 
+Added in v2.1 breakAt now supports changing margin within these breakpoints.
 
-For example 
+For example
 
 ```
 {
