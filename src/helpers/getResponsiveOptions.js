@@ -76,7 +76,7 @@ export function getOptionsAsDesktopFirst ({ options, responsiveOptions, keys, do
  * @return {Object}         - Object containing the current spacing options
  */
 export function getResponsiveOptions (options) {
-  let docWidth = document.body.clientWidth;
+  let docWidth = window.innerWidth;
   let responsiveOptions = {
     columns: options.columns,
   };
