@@ -160,7 +160,7 @@ macyInstance.runOnImageLoad(function () {
 }, true);
 ```
 
-If you only require it to run once all the images have loaded you can acheive this by passing null as the first parameter:
+If you only require it to run once all the images have loaded you can achieve this by passing null as the first parameter:
 
 ```javascript
 macyInstance.runOnImageLoad(function () {
