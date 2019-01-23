@@ -6,6 +6,10 @@ import scopeShim from './helpers/scopeshim';
 
 import foreach from './helpers/foreach';
 
+if (!Array.from) {
+  Array.from=n=>{let i=0,a=[];for (;i<n.length;)a.push(n[i++]);return a;}
+}
+
 
 const defaults = {
   columns: 4,

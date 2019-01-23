@@ -6,7 +6,7 @@ let buildObj = {
   entry: 'src/macy.js',
   format: 'umd',
   moduleName: 'Macy',
-  banner: '/* Macy.js - v2.3.1 */',
+  banner: '/* Macy.js - v2.3.2 */',
   plugins: [
     eslint(),
     babel(),

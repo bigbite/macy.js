@@ -11,6 +11,10 @@ import foreach from '../helpers/foreach';
  */
 const calculate = (ctx, refresh = false, loaded = true) => {
   let children = refresh ? ctx.container.children : $e(':scope > *:not([data-macy-complete="1"])', ctx.container);
+
+  // Filter out hidden children.
+  children = Array.from(children).filter(child => child.offsetParent !== null);
+
   let eleWidth = getWidths(ctx.options);
 
   foreach(children, (child) => {
