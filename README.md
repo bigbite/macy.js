@@ -45,6 +45,10 @@ Adjust the margin between columns with a pixel value. Don’t forget you can sti
 
 Added in v2.1 you can now have an object for margin. This is optional you can set the margin property to just a number and macy will use it for both. But if you would like to add a different xMargin or yMargin then you can do so like this
 
+Added in v2.4 you can now set the x property to be a percentage based value, in addition to this, the x property can use other unit types. 
+
+**Note:** Due to the way the container height is calculated, using anything other than integer in the Y property will cause an error. 
+
 ```
 margin: {
   x: 10,

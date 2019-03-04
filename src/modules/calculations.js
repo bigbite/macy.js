@@ -40,8 +40,21 @@ export function getWidths (options, marginsIncluded = true) {
     return '100%';
   }
 
+  let unit = 'px';
+
+  if (typeof margins === 'string') {
+    let tempBase = parseFloat(margins);
+    unit = margins.replace(tempBase, '');
+    margins = tempBase;
+  }
+
   margins = (noOfColumns - 1) * margins / noOfColumns;
-  return `calc(${width}% - ${margins}px)`;
+
+  if (unit === '%') {
+    return `${width - margins}%`;
+  }
+
+  return `calc(${width}% - ${margins}${unit})`;
 };
 
 /**
@@ -62,10 +75,22 @@ export function getLeftPosition (ctx, col) {
   }
 
   baseMargin = getCurrentMargin(ctx.options).x;
+  let unit = 'px';
+
+  if (typeof baseMargin === 'string') {
+    let tempBase = parseFloat(baseMargin, 10);
+    unit = baseMargin.replace(tempBase, '');
+    baseMargin = tempBase;
+  }
+
 
   margin = (baseMargin - (noOfColumns - 1) * baseMargin / noOfColumns) * (col - 1);
   totalLeft += getWidths(ctx.options, false) * (col - 1);
-  str = 'calc(' + totalLeft + '% + ' + margin + 'px)';
+  if (unit === '%') {
+    str = `${totalLeft + margin}%`;
+  } else {
+    str = `calc(${totalLeft}% + ${margin}${unit})`;
+  }
 
   return str;
 }
