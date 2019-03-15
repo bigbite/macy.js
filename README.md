@@ -206,7 +206,7 @@ macyInstance.reInit();
 
 This would console log when all images are loaded.
 ```javascript
-macyInstance.on(macyInstance.constants.EVENT_IMAGE_COMPLETE. function (ctx) {
+macyInstance.on(macyInstance.constants.EVENT_IMAGE_COMPLETE, function (ctx) {
   console.log('all images have loaded');
 });
 ```
