@@ -70,5 +70,9 @@ const imageLoaderPromise = (ctx, images, emitOnLoad = false) => Promise.all(getI
  * @param during {Boolean} - Should promise fire image load event
  */
 export function imagesLoadedNew (ctx, imgs, during = false) {
-  imageLoaderPromise(ctx, imgs, during);
+  if (!!window.Promise) {
+    return imageLoaderPromise(ctx, imgs, during);
+  }
+
+  ctx.recalculate(true, true);
 }

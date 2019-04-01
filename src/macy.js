@@ -5,6 +5,7 @@ import { imagesLoadedNew } from './helpers/imagesLoaded';
 import scopeShim from './helpers/scopeshim';
 
 import foreach from './helpers/foreach';
+import { isSupported } from './helpers/is-supported';
 
 if (!Array.from) {
   Array.from=n=>{let i=0,a=[];for (;i<n.length;)a.push(n[i++]);return a;}
@@ -20,6 +21,7 @@ const defaults = {
   breakAt: {},
   useOwnImageLoader: false,
   onInit: false,
+  cancelLegacy: false,
 };
 
 scopeShim();
@@ -38,6 +40,10 @@ const Macy = function (opts = defaults) {
 
   this.options = {};
   Object.assign(this.options, defaults, opts);
+
+  if (this.options.cancelLegacy && !isSupported()) {
+    return;
+  }
 
   setup(this);
 };

@@ -118,6 +118,11 @@ If you do not need the modify the margin you can leave it as `760: 4` and macy w
 
 This would change the xMargin to 20px when screens are smaller than 760, but the instance will use a previously declared y value.
 
+
+#### **cancelLegacy**
+
+_Default: `false`_ - If enabled this will cause the script to not run on browsers that don't support native Promises and when there isn't a polyfill present. 
+
 ## Methods
 
 #### **Macy**
