@@ -123,6 +123,9 @@ This would change the xMargin to 20px when screens are smaller than 760, but the
 
 _Default: `false`_ - If enabled this will cause the script to not run on browsers that don't support native Promises and when there isn't a polyfill present. 
 
+#### **useContainerForBreakpoints**
+_Default: `false`_ - When enabled the breakpoint options are based on the container elements width instead of the document width.
+
 ## Methods
 
 #### **Macy**

@@ -26,12 +26,13 @@ const setupContainer = (ctx) => {
     return ctx.options.debug ? console.error('Error: Container not found') : false;
   }
 
-  // Remove container selector from the options
-  delete ctx.options.container;
 
   if (ctx.container.length) {
     ctx.container = ctx.container[0];
   }
+
+  // Set container options selector to container element
+  ctx.options.container = ctx.container;
 
   ctx.container.style.position = 'relative';
 };

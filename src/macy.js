@@ -22,6 +22,7 @@ const defaults = {
   useOwnImageLoader: false,
   onInit: false,
   cancelLegacy: false,
+  useContainerForBreakpoints: false,
 };
 
 scopeShim();
