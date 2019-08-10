@@ -14,6 +14,12 @@ Install with Bower:
 bower install macy
 ```
 
+Include via [jsDelivr CDN](https://www.jsdelivr.com/package/npm/macy):
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/macy@2"></script>
+```
+
 ## Usage
 ```javascript
 var macyInstance = Macy({
