@@ -3,7 +3,6 @@ import setup from './modules/setup.js'
 import calculate from './modules/calculate';
 import { imagesLoadedNew } from './helpers/imagesLoaded';
 import scopeShim from './helpers/scopeshim';
-
 import foreach from './helpers/foreach';
 import { isSupported } from './helpers/is-supported';
 
