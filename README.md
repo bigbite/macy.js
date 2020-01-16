@@ -168,7 +168,7 @@ macyInstance.recalculate();
 
 #### **runOnImageLoad**
 
-*Parameters: `{Function} - Function to run on image load` & `{Boolean} If true it will run everytime an image loadsl`*
+*Parameters: `{Function} - Function to run on image load` & `{Boolean} If true it will run everytime an image loads`*
 
 runOnImageLoad is a method used to do something each time and image loads or after all images have been loaded. This helps when using Ajax to make sure the layout is worked out correctly when images are loading. Using this in conjunction with the recalculate function makes your layouts look great no matter how long it takes to load in your images:
 
@@ -178,7 +178,7 @@ macyInstance.runOnImageLoad(function () {
 }, true);
 ```
 
-If you only require it to run once all the images have loaded you can achieve this by passing null as the first parameter:
+If you only require it to run once all the images have loaded you can achieve this by ommiting the second parameter as this defaults to false:
 
 ```javascript
 macyInstance.runOnImageLoad(function () {
@@ -193,6 +193,17 @@ If you only require the during function to run then only pass it one function:
 macyInstance.runOnImageLoad(function () {
   console.log('Every time an image loads I get fired');
   macyInstance.recalculate(true);
+}, true);
+```
+
+The callback function receives an event as its first and only property, if you are running the callback on every image load then the function has access to the image that has just loaded.
+
+```javascript
+macyInstance.runOnImageLoad(function (event) {
+  if (event.data.img) {
+    // note: this parameter can be undefined if it is the final completion event that is emitted.
+    console.log(event.data.img);
+  }
 }, true);
 ```
 
