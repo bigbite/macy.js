@@ -46,7 +46,7 @@ Setting this to false will prioritise equalising the height of each column over 
 
 #### **margin**
 
-*Default: `0`*
+*Default: `2`*
 Adjust the margin between columns with a pixel value. Don’t forget you can still apply padding to the elements with standard CSS.
 
 Added in v2.1 you can now have an object for margin. This is optional you can set the margin property to just a number and macy will use it for both. But if you would like to add a different xMargin or yMargin then you can do so like this
