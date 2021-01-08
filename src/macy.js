@@ -11,6 +11,10 @@ if (!Array.from) {
 }
 
 
+if (window.NodeList && !NodeList.prototype.forEach) {
+  NodeList.prototype.forEach = Array.prototype.forEach;
+}
+
 const defaults = {
   columns: 4,
   margin: 2,
