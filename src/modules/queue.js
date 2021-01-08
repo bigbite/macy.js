@@ -1,5 +1,3 @@
-import foreach from '../helpers/foreach';
-
 /**
  * The queue function allows to for recalculate to run one at a time to avoid conflicts.
  * @param events {Mixed} a single function or an array of functions
@@ -35,7 +33,7 @@ Queue.prototype.add = function (event = false) {
   }
 
   if (Array.isArray(event)) {
-    return foreach(event, (evt) => this.add(evt));
+    return event.forEach(evt => this.add(evt));
   }
 
   this.events.push(event);

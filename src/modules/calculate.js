@@ -1,7 +1,6 @@
 import $e from './$e';
 import {getWidths} from './calculations';
 import * as cols from './columns';
-import foreach from '../helpers/foreach';
 
 /**
  * Calculates the column widths and positions dependant on options.
@@ -17,7 +16,7 @@ const calculate = (ctx, refresh = false, loaded = true) => {
 
   let eleWidth = getWidths(ctx.options);
 
-  foreach(children, (child) => {
+  children.forEach(child => {
     if (refresh) {
       child.dataset.macyComplete = 0;
     }
