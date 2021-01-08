@@ -1,5 +1,3 @@
-import foreach from '../helpers/foreach';
-
 /**
  * Event object that will be passed to callbacks
  * @param instance {Macy} - Macy instance
@@ -52,7 +50,7 @@ EventManager.prototype.emit = function (key = false, data = {}) {
   }
 
   const evt = new Event(this.instance, data);
-  foreach(this.events[key], (fn) => fn(evt));
+  this.events[key].forEach(fn => fn(evt));
 };
 
 export default EventManager;

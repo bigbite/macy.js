@@ -1,4 +1,3 @@
-import foreach from '../helpers/foreach';
 import { getResponsiveOptions } from '../helpers/getResponsiveOptions';
 
 /**
@@ -103,7 +102,7 @@ export function setContainerHeight (ctx) {
   let largest = 0;
   let {container, rows} = ctx;
 
-  foreach(rows, (row) => {
+  rows.forEach(row => {
     largest = row > largest ? row : largest;
   });
 

@@ -3,13 +3,16 @@ import setup from './modules/setup.js'
 import calculate from './modules/calculate';
 import { imagesLoadedNew } from './helpers/imagesLoaded';
 import scopeShim from './helpers/scopeshim';
-import foreach from './helpers/foreach';
 import { isSupported } from './helpers/is-supported';
 
 if (!Array.from) {
   Array.from=n=>{let i=0,a=[];for (;i<n.length;)a.push(n[i++]);return a;}
 }
 
+
+if (window.NodeList && !NodeList.prototype.forEach) {
+  NodeList.prototype.forEach = Array.prototype.forEach;
+}
 
 const defaults = {
   columns: 4,
@@ -99,7 +102,7 @@ Macy.prototype.recalculate = function (refresh = false, loaded = true) {
 Macy.prototype.remove = function () {
   window.removeEventListener('resize', this.resizer);
 
-  foreach(this.container.children, (child) => {
+  this.container.children.forEach(child => {
     child.removeAttribute('data-macy-complete');
     child.removeAttribute('style');
   });
