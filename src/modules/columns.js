@@ -62,6 +62,11 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
     let smallest = 0;
     let eleHeight = parseInt(ele.offsetHeight, 10);
 
+    if (cols === 1) {
+      ele.removeAttribute('style');
+      return;
+    }
+
     if (isNaN(eleHeight)) return;
 
     ctx.rows.forEach((v, k) => {
@@ -84,7 +89,11 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
     ctx.tmpRows = null;
   }
 
-  setContainerHeight(ctx);
+  if (cols === 1) {
+    ctx.container.style.height = 'auto';
+  } else {
+    setContainerHeight(ctx);
+  }
 }
 
 /**
@@ -103,6 +112,11 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
 
     if (ctx.lastcol === cols) {
       ctx.lastcol = 0;
+    }
+
+    if (cols === 1) {
+      ele.removeAttribute('style');
+      return;
     }
 
     let eleHeight = prop(ele, 'height');
@@ -124,5 +138,9 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
     ctx.tmpRows = null;
   }
 
-  setContainerHeight(ctx);
+  if (cols === 1) {
+    ctx.container.style.height = 'auto';
+  } else {
+    setContainerHeight(ctx);
+  }
 }
