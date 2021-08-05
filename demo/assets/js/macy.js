@@ -650,6 +650,11 @@
       let smallest = 0;
       let eleHeight = parseInt(ele.offsetHeight, 10);
 
+      if (cols === 1) {
+        ele.removeAttribute('style');
+        return;
+      }
+
       if (isNaN(eleHeight)) return;
 
       ctx.rows.forEach((v, k) => {
@@ -673,7 +678,11 @@
       ctx.tmpRows = null;
     }
 
-    setContainerHeight(ctx);
+    if (cols === 1) {
+      ctx.container.style.height = 'auto';
+    } else {
+      setContainerHeight(ctx);
+    }
   }
 
   /**
@@ -692,6 +701,11 @@
 
       if (ctx.lastcol === cols) {
         ctx.lastcol = 0;
+      }
+
+      if (cols === 1) {
+        ele.removeAttribute('style');
+        return;
       }
 
       let eleHeight = prop(ele, 'height');
@@ -713,7 +727,11 @@
       ctx.tmpRows = null;
     }
 
-    setContainerHeight(ctx);
+    if (cols === 1) {
+      ctx.container.style.height = 'auto';
+    } else {
+      setContainerHeight(ctx);
+    }
   }
 
   /**

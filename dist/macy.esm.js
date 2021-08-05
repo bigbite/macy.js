@@ -644,6 +644,11 @@ function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
     let smallest = 0;
     let eleHeight = parseInt(ele.offsetHeight, 10);
 
+    if (cols === 1) {
+      ele.removeAttribute('style');
+      return;
+    }
+
     if (isNaN(eleHeight)) return;
 
     ctx.rows.forEach((v, k) => {
@@ -654,7 +659,8 @@ function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
 
     ele.style.position = 'absolute';
     ele.style.top = `${ctx.rows[smallest]}px`;
-    ele.style.left = `${ctx.cols[smallest]}`;
+    ele.style[ctx.options.rtl ? 'right' : 'left'] = `${ctx.cols[smallest]}`;
+
     ctx.rows[smallest] += !isNaN(eleHeight) ? eleHeight + margin : 0;
 
     if (markasComplete) {
@@ -666,7 +672,11 @@ function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
     ctx.tmpRows = null;
   }
 
-  setContainerHeight(ctx);
+  if (cols === 1) {
+    ctx.container.style.height = 'auto';
+  } else {
+    setContainerHeight(ctx);
+  }
 }
 
 /**
@@ -687,13 +697,18 @@ function sort (ctx, $eles, refresh = false, markasComplete = true) {
       ctx.lastcol = 0;
     }
 
+    if (cols === 1) {
+      ele.removeAttribute('style');
+      return;
+    }
+
     let eleHeight = prop(ele, 'height');
     eleHeight = parseInt(ele.offsetHeight, 10);
 
     if (isNaN(eleHeight)) return;
     ele.style.position = 'absolute';
     ele.style.top = `${ctx.rows[ctx.lastcol]}px`;
-    ele.style.left = `${ctx.cols[ctx.lastcol]}`;
+    ele.style[ctx.options.rtl ? 'right' : 'left'] = `${ctx.cols[ctx.lastcol]}`;
     ctx.rows[ctx.lastcol] += !isNaN(eleHeight) ? eleHeight + margin : 0;
     ctx.lastcol += 1;
 
@@ -706,7 +721,11 @@ function sort (ctx, $eles, refresh = false, markasComplete = true) {
     ctx.tmpRows = null;
   }
 
-  setContainerHeight(ctx);
+  if (cols === 1) {
+    ctx.container.style.height = 'auto';
+  } else {
+    setContainerHeight(ctx);
+  }
 }
 
 /**
@@ -823,6 +842,7 @@ const defaults = {
   onInit: false,
   cancelLegacy: false,
   useContainerForBreakpoints: false,
+  rtl: document.documentElement.getAttribute('dir') === 'rtl',
 };
 
 init();
