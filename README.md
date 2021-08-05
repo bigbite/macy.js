@@ -76,6 +76,13 @@ If set to true, Macy will wait for all images on the page to load before running
 
 Set this to true if you would prefer to use a different image loaded library.
 
+
+#### **rtl**
+
+*Default: outcome of `document.documentElement.getAttribute('dir') === 'rtl'`*
+
+Set this to true if you would like macy to run in right to left mode
+
 #### **mobileFirst**
 *Default: `false`*
 
@@ -261,5 +268,3 @@ Currently available constants
 
 ## *Notes*
 - Browser support for all major browsers excluding IE11
-- IE11 requires a Promise polyfill for image loading to work
-- To support IE10 a dataset polyfill will have to be added
