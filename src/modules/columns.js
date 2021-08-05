@@ -77,7 +77,8 @@ export function shuffle (ctx, $eles, refresh = false, markasComplete = true) {
 
     ele.style.position = 'absolute';
     ele.style.top = `${ctx.rows[smallest]}px`;
-    ele.style.left = `${ctx.cols[smallest]}`;
+    ele.style[ctx.options.rtl ? 'right' : 'left'] = `${ctx.cols[smallest]}`;
+
     ctx.rows[smallest] += !isNaN(eleHeight) ? eleHeight + margin : 0;
 
     if (markasComplete) {
@@ -125,7 +126,7 @@ export function sort (ctx, $eles, refresh = false, markasComplete = true) {
     if (isNaN(eleHeight)) return;
     ele.style.position = 'absolute';
     ele.style.top = `${ctx.rows[ctx.lastcol]}px`;
-    ele.style.left = `${ctx.cols[ctx.lastcol]}`;
+    ele.style[ctx.options.rtl ? 'right' : 'left'] = `${ctx.cols[ctx.lastcol]}`;
     ctx.rows[ctx.lastcol] += !isNaN(eleHeight) ? eleHeight + margin : 0;
     ctx.lastcol += 1;
 

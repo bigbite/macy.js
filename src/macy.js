@@ -22,6 +22,7 @@ const defaults = {
   onInit: false,
   cancelLegacy: false,
   useContainerForBreakpoints: false,
+  rtl: document.documentElement.getAttribute('dir') === 'rtl',
 };
 
 scopeShim();
