@@ -26,6 +26,7 @@ export default [
 	{
 		input: 'src/macy.js',
 		output: [
+			{ exports: 'auto', file: "demo/assets/js/macy.js", format: "umd", name: 'Macy' },
 			{ exports: 'auto', file: "dist/macy.dev.js", format: "cjs" },
 			{ exports: 'auto', file: "dist/macy.js", format: "cjs", plugins: [terser()] },
 			{ exports: 'auto', file: "dist/macy.esm.js", format: "esm" },
