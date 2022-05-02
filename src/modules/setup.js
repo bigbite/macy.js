@@ -3,6 +3,7 @@ import Queue from './queue';
 import EventsManager from './events';
 import $e from './$e';
 import { imagesLoadedNew } from '../helpers/imagesLoaded';
+import async from '../helpers/async';
 
 /**
  * create a resize event that adds recalculate to the event queue;
@@ -63,7 +64,7 @@ const setupEventListeners = (ctx) => {
     imagesLoadedNew(ctx, imgs, !ctx.options.waitForImages);
   }
 
-  ctx.emit(ctx.constants.EVENT_INITIALIZED);
+  async(() => ctx.emit(ctx.constants.EVENT_INITIALIZED));
 };
 
 const setup = (ctx) => {
